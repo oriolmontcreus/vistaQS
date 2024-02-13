@@ -7602,9 +7602,7 @@ a.anchor-link {
     <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
     <span class="n">descr</span> <span class="n">TEXT</span><span class="p">,</span>
     <span class="n">startDate</span> <span class="n">TIMESTAMP</span><span class="p">,</span>
-    <span class="n">endDate</span> <span class="n">TIMESTAMP</span><span class="p">,</span>
-    <span class="n">idSurveyor</span> <span class="n">INT</span><span class="p">,</span>
-    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurveyor</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">surveyor</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">endDate</span> <span class="n">TIMESTAMP</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -7619,11 +7617,11 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">survey</span> <span class="p">(</span><span class="n">descr</span><span class="p">,</span> <span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">,</span> <span class="n">idSurveyor</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">survey</span> <span class="p">(</span><span class="n">descr</span><span class="p">,</span> <span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">)</span>
 <span class="n">VALUES</span> 
-<span class="p">(</span><span class="s1">'Survey 1'</span><span class="p">,</span> <span class="s1">'2022-01-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-01-31 23:59:59'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">'Survey 2'</span><span class="p">,</span> <span class="s1">'2022-02-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-02-28 23:59:59'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">'Survey 3'</span><span class="p">,</span> <span class="s1">'2022-03-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-03-31 23:59:59'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">(</span><span class="s1">'Survey 1'</span><span class="p">,</span> <span class="s1">'2022-01-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-01-31 23:59:59'</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">'Survey 2'</span><span class="p">,</span> <span class="s1">'2022-02-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-02-28 23:59:59'</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">'Survey 3'</span><span class="p">,</span> <span class="s1">'2022-03-01 00:00:00'</span><span class="p">,</span> <span class="s1">'2022-03-31 23:59:59'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -7650,7 +7648,7 @@ a.anchor-link {
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">questiontype</span> <span class="p">(</span>
     <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
-    <span class="n">descr</span> <span class="n">TEXT</span>
+    <span class="n">typeName</span> <span class="n">TEXT</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -7665,7 +7663,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">questiontype</span> <span class="p">(</span><span class="n">descr</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">questiontype</span> <span class="p">(</span><span class="n">typeName</span><span class="p">)</span>
 <span class="n">VALUES</span> 
 <span class="p">(</span><span class="s1">'Text'</span><span class="p">)</span>
 <span class="p">(</span><span class="s1">'True or False'</span><span class="p">),</span>
@@ -7699,9 +7697,7 @@ a.anchor-link {
     <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
     <span class="n">question</span> <span class="n">TEXT</span><span class="p">,</span>
     <span class="n">idQuestionType</span> <span class="n">INT</span><span class="p">,</span>
-    <span class="n">idSurvey</span> <span class="n">INT</span><span class="p">,</span>
-    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idQuestionType</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">questiontype</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span>
-    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurvey</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">survey</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idQuestionType</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">questiontype</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -7716,12 +7712,12 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">question</span> <span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">idQuestionType</span><span class="p">,</span> <span class="n">idSurvey</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">question</span> <span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">idQuestionType</span><span class="p">)</span>
 <span class="n">VALUES</span> 
-<span class="p">(</span><span class="s1">'What is your favorite color?'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">text</span>
-<span class="p">(</span><span class="s1">'Do you like programming?'</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">true</span><span class="o">/</span><span class="n">false</span>
-<span class="p">(</span><span class="s1">'From what range are you willing to pay?'</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">slider</span>
-<span class="p">(</span><span class="s1">'In what platforms do you play videogames?'</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">selection</span>
+<span class="p">(</span><span class="s1">'What is your favorite color?'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">text</span>
+<span class="p">(</span><span class="s1">'Do you like programming?'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">true</span><span class="o">/</span><span class="n">false</span>
+<span class="p">(</span><span class="s1">'From what range are you willing to pay?'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">slider</span>
+<span class="p">(</span><span class="s1">'In what platforms do you play videogames?'</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">selection</span>
 </pre></div>
 </div>
 </div>
@@ -7750,8 +7746,8 @@ a.anchor-link {
     <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
     <span class="n">answer</span> <span class="n">TEXT</span><span class="p">,</span>
     <span class="n">answeredDate</span> <span class="n">TIMESTAMP</span><span class="p">,</span>
-    <span class="n">questionId</span> <span class="n">INT</span><span class="p">,</span>
-    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">questionId</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">question</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="n">idQuestion</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idQuestion</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">question</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -7766,12 +7762,130 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">answer</span> <span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="n">answeredDate</span><span class="p">,</span> <span class="n">questionId</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">answer</span> <span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="n">answeredDate</span><span class="p">,</span> <span class="n">idQuestion</span><span class="p">)</span>
 <span class="n">VALUES</span> 
-<span class="p">(</span><span class="s1">'Blue'</span><span class="p">,</span> <span class="s1">'2022-01-01 00:00:00'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">text</span>
-<span class="p">(</span><span class="s1">'True'</span><span class="p">,</span> <span class="s1">'2022-02-01 00:00:00'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">true</span><span class="o">/</span><span class="n">false</span>
-<span class="p">(</span><span class="s1">'100;200'</span><span class="p">,</span> <span class="s1">'2022-03-01 00:00:00'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">slider</span>
-<span class="p">(</span><span class="s1">'PC;Xbox'</span><span class="p">,</span> <span class="s1">'2022-04-01 00:00:00'</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="o">--</span><span class="n">questiontype</span> <span class="n">selection</span>
+<span class="p">(</span><span class="s1">'Blue'</span><span class="p">,</span> <span class="s1">'2022-01-01 00:00:00'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">'True'</span><span class="p">,</span> <span class="s1">'2022-02-01 00:00:00'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">'100;200'</span><span class="p">,</span> <span class="s1">'2022-03-01 00:00:00'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">'PC;Xbox'</span><span class="p">,</span> <span class="s1">'2022-04-01 00:00:00'</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Table <code>questiontype_option</code></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">questiontype_option</span> <span class="p">(</span>
+    <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
+    <span class="n">idQuestion</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">idAnswer</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">descr</span> <span class="n">TEXT</span><span class="p">,</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idQuestion</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">QUESTION</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idAnswer</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">ANSWER</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">INSERT</span> <span class="n">INTO</span> <span class="n">questiontype_option</span> <span class="p">(</span><span class="n">idQuestion</span><span class="p">,</span> <span class="n">idAnswer</span><span class="p">,</span> <span class="n">descr</span><span class="p">)</span>
+<span class="n">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Xbox'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'Playstation'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'PC'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'Nintendo'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Yes'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'No'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'PC'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'Xbox'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'Playstation'</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'Nintendo'</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Table <code>survey_surveyor</code></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">survey_surveyor</span> <span class="p">(</span>
+    <span class="n">idSurvey</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">idSurveyor</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurvey</span><span class="p">,</span> <span class="n">idSurveyor</span><span class="p">),</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurvey</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">SURVEY</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurveyor</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">SURVEYOR</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Table <code>survey_question</code></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">survey_question</span> <span class="p">(</span>
+    <span class="n">idSurvey</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">idQuestion</span> <span class="n">INT</span><span class="p">,</span>
+    <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurvey</span><span class="p">,</span> <span class="n">idQuestion</span><span class="p">),</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idSurvey</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">SURVEY</span><span class="p">(</span><span class="n">idSurvey</span><span class="p">),</span>
+    <span class="n">FOREIGN</span> <span class="n">KEY</span> <span class="p">(</span><span class="n">idQuestion</span><span class="p">)</span> <span class="n">REFERENCES</span> <span class="n">QUESTION</span><span class="p">(</span><span class="n">idQuestion</span><span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
