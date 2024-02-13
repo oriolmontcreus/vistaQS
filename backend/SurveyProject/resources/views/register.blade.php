@@ -26,6 +26,7 @@
             style="display: flex;justify-content: center;align-items: center;">
             <button class="submit">Register</button>
             </div>
+            <!-- test -->
         </form>
     </div>
 </body>
