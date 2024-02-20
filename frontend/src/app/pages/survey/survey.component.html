@@ -1,0 +1,16 @@
+<div *ngFor="let question of questions; let i = index">
+    <div *ngIf="question.type === 'text'">
+        <label [for]="question.id.toString()">{{ question.question }}</label>
+        <input type="text" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" pInputText />
+    </div>
+
+    <div *ngIf="question.type === 'number'">
+        <label [for]="question.id.toString()">{{ question.question }}</label>
+        <input type="number" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" pInputText />
+    </div>
+
+    <div *ngIf="question.type === 'select'">
+        <label [for]="question.id.toString()">{{ question.question }}</label>
+        <p-dropdown [id]="question.id.toString()" [(ngModel)]="answers[i].answer" [options]="question.options"></p-dropdown>
+    </div>
+</div>
