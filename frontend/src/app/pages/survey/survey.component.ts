@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
-import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
 import AnswerDefinition from '@dto/types/Survey/AnswerDefinition';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
 
 @Component({
   selector: 'app-survey',
-  standalone: true,
-  imports: [ButtonModule, InputTextModule, DropdownModule, FormsModule, CommonModule],
   templateUrl: './survey.component.html',
-  styleUrls: ['./survey.component.css']
+  styleUrl: './survey.component.css'
 })
 
 export class SurveyComponent {
@@ -57,3 +50,4 @@ export class SurveyComponent {
     }));
   }
 }
+
