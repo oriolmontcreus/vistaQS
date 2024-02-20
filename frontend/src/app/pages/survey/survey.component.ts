@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
+import { QuestionDefinition } from '@dto/types/Survey/QuestionDefinition';
 
 @Component({
   selector: 'app-survey',
-  standalone: true,
-  imports: [],
   templateUrl: './survey.component.html',
-  styleUrl: './survey.component.css'
+  styleUrls: ['./survey.component.css']
 })
 
 export class SurveyComponent {
-  
+
+questions: QuestionDefinition[] = []
 }
