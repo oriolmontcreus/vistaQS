@@ -1,0 +1,59 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .mainContainer {
+        margin-top: 100px;
+    }
+
+    .form-container {
+        width: 60%;
+        margin: auto;
+    }
+
+    .form-field {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .form-field label {
+        flex: 0 0 30%;
+    }
+
+    .form-field input,
+    .form-field .p-dropdown {
+        flex: 1;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    .mainContainer {
+        margin-top: 0;
+    }
+
+    .form-container {
+        width: 90%;
+        margin: auto;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .form-field label {
+        margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field .p-dropdown {
+        width: 100%;
+    }
+}

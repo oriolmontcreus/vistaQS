@@ -11,6 +11,10 @@ import { SurveyComponent } from './pages/survey/survey.component';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     DropdownModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CheckboxModule,
+    RadioButtonModule,
+    CalendarModule,
+    InputTextareaModule
     
   ],
   providers: [
