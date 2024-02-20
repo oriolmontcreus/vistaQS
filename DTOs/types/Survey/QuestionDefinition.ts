@@ -1,5 +1,7 @@
-export type QuestionDefinition = {
+type QuestionDefinition = {
     id: number;
     question: string;
-    idQuestionType: number;
+    type: string;
+    options?: string[];
 };
+export default QuestionDefinition;
