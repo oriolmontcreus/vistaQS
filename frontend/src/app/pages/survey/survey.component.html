@@ -1,16 +1,47 @@
-<div *ngFor="let question of questions; let i = index">
-    <div *ngIf="question.type === 'text'">
-        <label [for]="question.id.toString()">{{ question.question }}</label>
-        <input type="text" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" pInputText />
-    </div>
+<div class="mainContainer">
+    <div class="form-container" *ngFor="let question of questions; let i = index">
+        <div class="form-field" *ngIf="question.type === 'text'">
+            <label [for]="question.id.toString()">{{ question.question }}</label>
+            <input type="text" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputText />
+        </div>
 
-    <div *ngIf="question.type === 'number'">
-        <label [for]="question.id.toString()">{{ question.question }}</label>
-        <input type="number" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" pInputText />
-    </div>
+        <div class="form-field" *ngIf="question.type === 'date'">
+            <label [for]="question.id.toString()">{{ question.question }}</label>
+            <p-calendar [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}"></p-calendar>
+        </div>
 
-    <div *ngIf="question.type === 'select'">
-        <label [for]="question.id.toString()">{{ question.question }}</label>
-        <p-dropdown [id]="question.id.toString()" [(ngModel)]="answers[i].answer" [options]="question.options"></p-dropdown>
+        <div class="form-field" *ngIf="question.type === 'email'">
+            <label [for]="question.id.toString()">{{ question.question }}</label>
+            <input type="email" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputText />
+        </div>
+
+        <div class="form-field" *ngIf="question.type === 'select'">
+            <label [for]="question.id.toString()">{{ question.question }}</label>
+            <p-dropdown [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" [options]="question.options"></p-dropdown>
+        </div>
+
+        <div class="form-field" *ngIf="question.type === 'checkbox'">
+            <label>{{ question.question }}</label>
+            <div *ngFor="let option of question.options; let j = index">
+                <p-checkbox [value]="option" (onChange)="addCheckBoxAnswers(option, question.id)" name="answer{{i}}Option{{j}}"></p-checkbox>
+                <label>{{ option }}</label>
+            </div>
+        </div>
+
+        <div class="form-field" *ngIf="question.type === 'radio'">
+            <label>{{ question.question }}</label>
+            <div *ngFor="let option of question.options; let j = index">
+                <p-radioButton [value]="option" [(ngModel)]="answers[j].answer" name="answer{{i}}"></p-radioButton>
+                <label>{{ option }}</label>
+            </div>
+        </div>
+
+        <div class="form-field" *ngIf="question.type === 'textarea'">
+            <label [for]="question.id.toString()">{{ question.question }}</label>
+            <textarea [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputTextarea rows="5" cols="30"></textarea>
+        </div>
+    </div>
+    <div class="button-container">
+        <p-button label="Submit" (click)="submitForm()"></p-button>
     </div>
 </div>
