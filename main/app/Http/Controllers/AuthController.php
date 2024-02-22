@@ -32,7 +32,7 @@ class AuthController extends Controller
             $user = $this->authService->createUser($request->all());
 
             if ($user instanceof MessageBag) 
-                return ApiResponse::error($user);
+                throw new \Exception('Validation error');
 
             return ApiResponse::success('User Created Successfully', ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
@@ -48,10 +48,11 @@ class AuthController extends Controller
             $result = $this->authService->loginUser($userPayload);
 
             if ($result instanceof MessageBag)
-                return ApiResponse::error('Validation error', $result);
+                throw new \Exception('Validation error');
 
-            if (!$result) 
-                return ApiResponse::error('Email and Password does not match');
+            if (!$result) {
+                throw new \Exception('Email and Password does not match');
+            }
 
             return ApiResponse::success('User Logged In Successfully', $result);
 
