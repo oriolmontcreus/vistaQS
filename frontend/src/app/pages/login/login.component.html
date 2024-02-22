@@ -1,0 +1,17 @@
+<div class="mainContainer">
+    <p-toast></p-toast>
+    <div class="container">
+        <img src="../../../assets/Logos/vistaqs-logo.png" class="logo">
+        <div class="field">
+            <label for="email" class="label">Email</label>
+            <input id="email" type="text" class="inputField" pInputText [(ngModel)]="userPayload.email">
+        </div>
+        <div class="field">
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" class="inputField" pInputText [(ngModel)]="userPayload.password">
+        </div>
+        <button pButton type="button" label="Log In" class="login-button" (click)="login()"></button>
+        <p class="text">Don't have an account?</p>
+        <a routerLink="/register" class="register-button">Register</a>
+    </div>
+</div>
