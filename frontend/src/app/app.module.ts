@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SurveyComponent } from './pages/survey/survey.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 
 //PRIME NG
 import { ButtonModule } from 'primeng/button';
@@ -16,15 +18,17 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { LoginComponent } from './pages/login/login.component';
 import { PasswordModule } from 'primeng/password';;
 import { ToastModule } from 'primeng/toast';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
     AppComponent,
     SurveyComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,8 @@ import { ToastModule } from 'primeng/toast';
     PasswordModule,
     HttpClientModule,
     ToastModule,
+    ScrollTopModule,
+    TooltipModule
   ],
   providers: [
     provideClientHydration(),
