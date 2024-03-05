@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 
 export class LoginComponent {
@@ -20,13 +20,27 @@ export class LoginComponent {
     password: ''
   };
 
+  isLoading: boolean = false;
+
+  visible: boolean = false;
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  closeDialog() {
+    this.visible = false;
+  }
+
   validateUserPayload(): boolean {
     return this.userPayload.email.trim() !== '' && this.userPayload.password.trim() !== '';
   }
 
   login() {
+    this.isLoading = true;
     if (!this.validateUserPayload()) {
       this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all fields.' });
+      this.userPayload.password = '';
       return;
     }
     
@@ -34,7 +48,7 @@ export class LoginComponent {
       next: data => {
         if (data.status === ResConst.RES_SUCCESS) {
           this.toastService.add({ severity: 'success', summary: 'Success', detail: 'Login Successful!' });
-          this.router.navigate(['/home']);
+          this.closeDialog();
         }
         else {
           this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please try again.' });
@@ -44,7 +58,7 @@ export class LoginComponent {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
       },
       complete: () => {
-        console.log('HTTP request completed.');
+        this.isLoading = false;
       }
     });
   }

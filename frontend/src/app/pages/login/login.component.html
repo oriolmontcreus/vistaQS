@@ -1,17 +1,30 @@
-<div class="mainContainer">
-    <p-toast></p-toast>
-    <div class="container">
-        <img src="../../../assets/Logos/vistaqs-logo.png" class="logo">
-        <div class="field">
-            <label for="email" class="label">Email</label>
-            <input id="email" type="text" class="inputField" pInputText [(ngModel)]="userPayload.email">
-        </div>
-        <div class="field">
-            <label for="password" class="label">Password</label>
-            <input type="password" id="password" class="inputField" pInputText [(ngModel)]="userPayload.password">
-        </div>
-        <button pButton type="button" label="Log In" class="login-button" (click)="login()"></button>
-        <p class="text">Don't have an account?</p>
-        <a routerLink="/register" class="register-button">Register</a>
+<div class="card flex justify-content-center">
+    <div class="dialog-backdrop" *ngIf="visible">
+    <p-dialog [(visible)]="visible">
+        <ng-template pTemplate="headless">
+            <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 5px; background-color: #252525;">
+                <div class="p-grid p-dir-col p-jc-center p-ai-center">
+                    <img src="assets/Logos/vistaqs-logo-min.png" alt="VistaQs Logo" width="44px" style="display: block; margin: 0 auto;" />
+                </div>
+                <div class="inline-flex flex-column gap-2">
+                    <label for="email" class="text-primary-50 font-semibold">Email</label>
+                    <input pInputText [(ngModel)]="userPayload.email" id="username" type="email" class="bg-white-alpha-20 border-none p-3 text-primary-50"/>
+                </div>
+                <div class="inline-flex flex-column gap-2">
+                    <label for="password" class="text-primary-50 font-semibold">Password</label>
+                    <input pInputText [(ngModel)]="userPayload.password" id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"/>
+                </div>
+                <div class="flex align-items-center gap-2">
+                    <p-button label="Sign-In" (click)="login()" [text]="true" styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" ></p-button>
+                    <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
     </div>
+</div>
+<p-toast></p-toast>
+
+<div class="spinner-container" *ngIf="isLoading">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
 </div>
