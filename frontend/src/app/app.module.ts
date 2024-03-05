@@ -46,7 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
     HttpClientModule,
     ToastModule,
     ScrollTopModule,
-    TooltipModule
+    TooltipModule,
   ],
   providers: [
     provideClientHydration(),

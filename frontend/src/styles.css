@@ -21,3 +21,8 @@
     scrollbar-width: thin;
     scrollbar-color: #333 transparent;
 }
+
+body {
+    margin: 0;
+    height: 100%;
+}
