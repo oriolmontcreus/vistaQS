@@ -23,6 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { DialogModule } from 'primeng/dialog';
     ScrollTopModule,
     TooltipModule,
     DialogModule,
+    ProgressSpinnerModule
   ],
   providers: [
     provideClientHydration(),
