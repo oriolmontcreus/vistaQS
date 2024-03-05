@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,13 @@ export class HomeComponent {
 
   constructor() { }
 
+  @ViewChild(LoginComponent) loginDialog!: LoginComponent;
+
+  openDialog() {
+      this.loginDialog.showDialog();
+  }
+
+  // BACKGROUND ANIMATION DEPENDING ON MOUSE POSITION
   // ngOnInit() {
   //   this.renderer.listen('body', 'pointermove', (event) => {
   //     const el = event.currentTarget;

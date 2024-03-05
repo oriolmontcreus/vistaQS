@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 
 export class LoginComponent {
@@ -19,6 +19,16 @@ export class LoginComponent {
     email: '',
     password: ''
   };
+
+  visible: boolean = false;
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  closeDialog() {
+    this.visible = false;
+  }
 
   validateUserPayload(): boolean {
     return this.userPayload.email.trim() !== '' && this.userPayload.password.trim() !== '';

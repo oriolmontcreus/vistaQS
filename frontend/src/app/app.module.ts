@@ -22,6 +22,7 @@ import { PasswordModule } from 'primeng/password';;
 import { ToastModule } from 'primeng/toast';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ToastModule,
     ScrollTopModule,
     TooltipModule,
+    DialogModule,
   ],
   providers: [
     provideClientHydration(),
