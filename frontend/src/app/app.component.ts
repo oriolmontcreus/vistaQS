@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +6,7 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'VistaQs';
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.authService.autoLogin().subscribe();
-  }
+  constructor() {}
 }

@@ -21,10 +21,8 @@ export class AuthService {
           next: (response) => {
             if (response.status === 'SUCCESS') {
               localStorage.setItem('user', JSON.stringify(response.payload.user));
-              if (remember) {
+              if (remember)
                 localStorage.setItem('token', response.payload.token);
-              }
-              console.log('SUCCESS', response.payload.token)
             }
           },
           error: (error) => {
@@ -66,7 +64,7 @@ export class AuthService {
           tap({
             next: (response) => {
               if (response.status === 'SUCCESS'){
-                this.router.navigate(['/survey']);
+                this.router.navigate(['/']);
                 return;
               }
               localStorage.removeItem('token');
