@@ -5,6 +5,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
+::selection {
+    background: rgba(128, 128, 128, 0.2);
+}
+::-moz-selection {
+    background: rgba(128, 128, 128, 0.2);
+    color: white;
+}
+
 /* SCROLL */
 
 /* For Chrome, Safari and Opera */

@@ -21,6 +21,7 @@ export class AuthService {
           next: (response) => {
             if (response.status === 'SUCCESS') {
               localStorage.setItem('user', JSON.stringify(response.payload.user));
+              this.router.navigate(['/dashboard']);
               if (remember)
                 localStorage.setItem('token', response.payload.token);
             }
@@ -55,8 +56,7 @@ export class AuthService {
 
     autoLogin(): Observable<any> {
       if (typeof window !== 'undefined' && window.localStorage) {
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-        if (isAuthenticated === 'true') return of(null);
+        const isFirstLogin = localStorage.getItem('isFirstLogin');
 
         const token = localStorage.getItem('token');
         if (!token) return of(null);
@@ -67,19 +67,21 @@ export class AuthService {
           tap({
             next: (response) => {
               if (response.status === 'SUCCESS'){
-                localStorage.setItem('isAuthenticated', 'true');
-                this.router.navigate(['/']);
+                console.log('User is authenticated');
+                localStorage.setItem('isFirstLogin', 'true');
+                if (isFirstLogin)
+                  this.router.navigate(['/dashboard']);
                 return;
               }
               localStorage.removeItem('token');
               localStorage.removeItem('user');
-              localStorage.removeItem('isAuthenticated');
+              localStorage.removeItem('isFirstLogin');
             },
             error: (error) => {
               console.error('Error:', error);
               localStorage.removeItem('token');
               localStorage.removeItem('user');
-              localStorage.removeItem('isAuthenticated');
+              localStorage.removeItem('isFirstLogin');
             },
             complete: () => {}
           })

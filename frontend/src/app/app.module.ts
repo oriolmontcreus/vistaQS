@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SurveyComponent } from './pages/survey/survey.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 //PRIME NG
 import { ButtonModule } from 'primeng/button';
@@ -24,6 +25,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MenuModule } from 'primeng/menu';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     SurveyComponent,
     LoginComponent,
     HomeComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ScrollTopModule,
     TooltipModule,
     DialogModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    MenuModule,
+    TableModule
   ],
   providers: [
     provideClientHydration(),
