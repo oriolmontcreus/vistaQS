@@ -41,7 +41,7 @@ class AuthService
     //  * @param UserPayload $userPayload
     //  * @return array|bool
     //  */
-    public function loginUser(UserPayload $userPayload)
+    public function loginUser(UserPayload $userPayload, bool $remember = false)
     {
         $validateUser = Validator::make((array) $userPayload, 
         [
@@ -49,11 +49,12 @@ class AuthService
             'password' => 'required'
         ]);
 
-        if($validateUser->fails()){
+        if($validateUser->fails())
             return $validateUser->errors();
-        }
 
-        if(!Auth::attempt((array) $userPayload)){
+        $credentials = (array) $userPayload;
+
+        if(!Auth::attempt($credentials, $remember)){
             return false;
         }
 
