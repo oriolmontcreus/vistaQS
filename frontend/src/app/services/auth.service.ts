@@ -55,6 +55,9 @@ export class AuthService {
 
     autoLogin(): Observable<any> {
       if (typeof window !== 'undefined' && window.localStorage) {
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+        if (isAuthenticated === 'true') return of(null);
+
         const token = localStorage.getItem('token');
         if (!token) return of(null);
 
@@ -64,16 +67,19 @@ export class AuthService {
           tap({
             next: (response) => {
               if (response.status === 'SUCCESS'){
+                localStorage.setItem('isAuthenticated', 'true');
                 this.router.navigate(['/']);
                 return;
               }
               localStorage.removeItem('token');
               localStorage.removeItem('user');
+              localStorage.removeItem('isAuthenticated');
             },
             error: (error) => {
               console.error('Error:', error);
               localStorage.removeItem('token');
               localStorage.removeItem('user');
+              localStorage.removeItem('isAuthenticated');
             },
             complete: () => {}
           })
@@ -82,4 +88,4 @@ export class AuthService {
         return of(null);
       }
     }
-}
+  }
