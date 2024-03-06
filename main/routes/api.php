@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,5 @@ Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::post('/auth/logout', [AuthController::class, 'logoutUser'])->middleware('auth:sanctum');
 Route::get('/user', [AuthController::class, 'getUserInfo'])->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])
+    ->post('/auth/validate-token', [AuthController::class, 'validateToken']);

@@ -44,7 +44,7 @@ class AuthController extends Controller
     public function loginUser(Request $request)
     {
         try {
-            $userPayload = new UserPayload($request->only(['email', 'password']));
+            $userPayload = new UserPayload($request->only(['email', 'password', 'remember']));
             $result = $this->authService->loginUser($userPayload);
 
             if ($result instanceof MessageBag)
@@ -76,5 +76,21 @@ class AuthController extends Controller
         $user = $user->getInfo();
 
         return ApiResponse::success('User information retrieved successfully', ['user' => $user]);
+    }
+
+    /**
+     * Validates the token.
+     * @param Request $request
+     * @return (ApiResponse::error | ApiResponse::success)
+     */
+    public function validateToken(Request $request)
+    {
+        try {
+            if ($request->user()) return ApiResponse::success('Token is valid'); 
+            else
+                throw new \Exception('Token is not valid');
+        } catch (\Throwable $th) {
+            return ApiResponse::error($th->getMessage());
+        }
     }
 }

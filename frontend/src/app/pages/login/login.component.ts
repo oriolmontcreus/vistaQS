@@ -43,12 +43,14 @@ export class LoginComponent {
       this.userPayload.password = '';
       return;
     }
-    
-    this.authService.login(this.userPayload).subscribe({
+    //TODO REMEMBER ME (THE TRUE)
+    this.authService.login(this.userPayload, true).subscribe({
       next: data => {
         if (data.status === ResConst.RES_SUCCESS) {
           this.toastService.add({ severity: 'success', summary: 'Success', detail: 'Login Successful!' });
           this.closeDialog();
+          this.userPayload.password = '';
+          this.userPayload.email = '';
         }
         else {
           this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please try again.' });
