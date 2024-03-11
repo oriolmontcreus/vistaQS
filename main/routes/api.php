@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use App\Http\Controllers\SurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::post('/auth/logout', [AuthController::class, 'logoutUser'])->middleware('
 Route::get('/user', [AuthController::class, 'getUserInfo'])->middleware('auth:sanctum');
 Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])
     ->post('/auth/validate-token', [AuthController::class, 'validateToken']);
+
+Route::get('/surveys', [SurveyController::class, 'getSurveys'])->middleware('auth:sanctum');
