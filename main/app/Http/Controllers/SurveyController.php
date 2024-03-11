@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\SurveyService;
 use App\Helpers\ApiResponse;
+use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -14,10 +15,10 @@ class SurveyController extends Controller
         $this->surveyService = $surveyService;
     }
 
-    public function getSurveys()
+    public function getSurveysForUser()
     {
         /** @var \App\Models\Survey $surveys */
-        $surveys = $this->surveyService->getAllSurveys();
+        $surveys = $this->surveyService->getSurveysForUser();
 
         return ApiResponse::success('Surveys retrieved successfully', ['surveys' => $surveys]);
     }

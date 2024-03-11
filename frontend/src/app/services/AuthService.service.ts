@@ -34,26 +34,6 @@ export class AuthService {
       );
     }
 
-    /**
-     * Decorator to require authentication for a method
-     */
-    RequiresAuth(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-      const originalMethod = descriptor.value;
-    
-      descriptor.value = function (...args: any[]) {
-        const token = localStorage.getItem('token');
-    
-        if (!token) {
-          console.error('User is not authenticated');
-          return;
-        }
-    
-        return originalMethod.apply(this, args);
-      };
-    
-      return descriptor;
-    }
-
     autoLogin(): Observable<any> {
       if (typeof window !== 'undefined' && window.localStorage) {
         const isFirstLogin = localStorage.getItem('isFirstLogin');

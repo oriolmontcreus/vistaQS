@@ -1,7 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { Injector } from '@angular/core';
-import { AuthService } from './app/services/auth.service';
+import { AuthService } from './app/services/AuthService.service';
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .then((moduleRef) => {
