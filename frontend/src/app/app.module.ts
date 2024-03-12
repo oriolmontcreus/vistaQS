@@ -27,6 +27,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { TableModule } from 'primeng/table';
     DialogModule,
     ProgressSpinnerModule,
     MenuModule,
-    TableModule
+    TableModule,
+    CardModule,
+    ToolbarModule
   ],
   providers: [
     provideClientHydration(),
