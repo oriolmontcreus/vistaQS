@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Survey;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SurveyService
 {
@@ -18,9 +19,17 @@ class SurveyService
     {
         return Survey::find($id);
     }
-
     public function getQuestionDefinitions(Survey $survey)
     {
+        $user = auth()->user();
+
+        $isAssigned = DB::table('survey_surveyor')
+            ->where('idSurvey', $survey->id)
+            ->where('idSurveyor', $user->id)
+            ->exists();
+
+        if (!$isAssigned) return null;
+
         $questions = $survey->questions()->with(['questionType', 'questionTypeOptions'])->get();
 
         return $questions->map(function ($question) {

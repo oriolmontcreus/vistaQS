@@ -26,9 +26,13 @@ class SurveyController extends Controller
     {
         $survey = $this->surveyService->getSurveyById($id);
 
-        if (!$survey) return ApiResponse::error('Survey not found', []);
+        if (!$survey) 
+            return ApiResponse::error('Survey not found', []);
 
         $questionDefinitions = $this->surveyService->getQuestionDefinitions($survey);
+
+        if ($questionDefinitions === null) 
+            return ApiResponse::error('Survey not assigned to the user', []);
 
         return ApiResponse::success('Questions retrieved successfully', ['questions' => $questionDefinitions]);
     }
