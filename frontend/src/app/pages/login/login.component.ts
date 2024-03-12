@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/AuthService.service';
 import UserPayload from '@dto/types/User/UserPayload';
 import { MessageService } from 'primeng/api';
 import ResConst from '@dto/types/General/ResConst'

@@ -7,13 +7,14 @@ import UserPayload from '@dto/types/User/UserPayload';
 import ApiResponse from '@dto/types/General/ApiResponse';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) { }
 
     login(userPayload: UserPayload, remember: boolean): Observable<any> {
       return this.http.post<ApiResponse>(`${URI}/auth/login`, { ...userPayload, remember }).pipe(
@@ -21,6 +22,7 @@ export class AuthService {
           next: (response) => {
             if (response.status === 'SUCCESS') {
               localStorage.setItem('user', JSON.stringify(response.payload.user));
+              this.ngZone.run(() => this.router.navigate(['/dashboard']));
               if (remember)
                 localStorage.setItem('token', response.payload.token);
             }
@@ -33,28 +35,10 @@ export class AuthService {
       );
     }
 
-    /**
-     * Decorator to require authentication for a method
-     */
-    RequiresAuth(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-      const originalMethod = descriptor.value;
-    
-      descriptor.value = function (...args: any[]) {
-        const token = localStorage.getItem('token');
-    
-        if (!token) {
-          console.error('User is not authenticated');
-          return;
-        }
-    
-        return originalMethod.apply(this, args);
-      };
-    
-      return descriptor;
-    }
-
     autoLogin(): Observable<any> {
       if (typeof window !== 'undefined' && window.localStorage) {
+        const isFirstLogin = localStorage.getItem('isFirstLogin');
+
         const token = localStorage.getItem('token');
         if (!token) return of(null);
 
@@ -64,16 +48,20 @@ export class AuthService {
           tap({
             next: (response) => {
               if (response.status === 'SUCCESS'){
-                this.router.navigate(['/']);
+                localStorage.setItem('isFirstLogin', 'true');
+                if (isFirstLogin)
+                this.ngZone.run(() => this.router.navigate(['/dashboard']));
                 return;
               }
               localStorage.removeItem('token');
               localStorage.removeItem('user');
+              localStorage.removeItem('isFirstLogin');
             },
             error: (error) => {
               console.error('Error:', error);
               localStorage.removeItem('token');
               localStorage.removeItem('user');
+              localStorage.removeItem('isFirstLogin');
             },
             complete: () => {}
           })
@@ -82,4 +70,4 @@ export class AuthService {
         return of(null);
       }
     }
-}
+  }

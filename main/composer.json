@@ -28,8 +28,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/ApiResponse.php",
-            "app/Helpers/ResponseConstants.php"
+            "app/Helpers/Constants/ResponseConstants.php",
+            "app/Helpers/ApiResponse.php"
         ]
     },
     "autoload-dev": {
