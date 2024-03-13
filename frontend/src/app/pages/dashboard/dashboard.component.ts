@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import UserResponse from '@dto/types/User/UserResponse';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
@@ -12,7 +12,7 @@ import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
   providers: [MessageService],
 })
 
-export class DashboardComponent{
+export class DashboardComponent implements OnInit{
   constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService) {}
 
   user: UserResponse = {} as UserResponse;
@@ -22,6 +22,10 @@ export class DashboardComponent{
   ngOnInit() {
     this.getUserData();
     this.getSurveysForUser();
+  }
+
+  openSurvey(surveyId: number) {
+    this.router.navigate(['/survey', surveyId]);
   }
 
   getUserData() {

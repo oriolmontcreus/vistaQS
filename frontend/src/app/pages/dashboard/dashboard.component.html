@@ -83,7 +83,7 @@
         <div class="p-toolbar-group-right">
             <button pButton icon="pi pi-print" class="mr-2" pTooltip="Print" tooltipPosition="top" tooltipShowDelay="300"></button>
             <button pButton icon="pi pi-download" class="mr-2" pTooltip="Download" tooltipPosition="top" tooltipShowDelay="300"></button>
-            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey" tooltipPosition="top" tooltipShowDelay="300"></button>
+            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey" tooltipPosition="top" tooltipShowDelay="300" (click)="openSurvey(survey.id)"></button>
         </div>
     </p-toolbar>
 </div>

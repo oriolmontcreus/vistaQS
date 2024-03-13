@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import AnswerDefinition from '@dto/types/Survey/AnswerDefinition';
 import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-survey',
@@ -9,6 +10,26 @@ import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
 })
 
 export class SurveyComponent implements OnInit{
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const id = params.get('id');
+      console.log(id);
+    });
+
+    this.initializeAnswers();
+  }
+
+  initializeAnswers() {
+    this.answers = this.questions.map(question => ({
+      id: question.id,
+      question: question.question,
+      type: question.type,
+      answer: []
+    }));
+  }
 
   answers: AnswerDefinition[] = []
   questions: QuestionDefinition[] = [
@@ -96,15 +117,6 @@ export class SurveyComponent implements OnInit{
       "question": "Do you have any comments or suggestions?",
     }
   ];
-
-  ngOnInit() {
-    this.answers = this.questions.map(question => ({
-      id: question.id,
-      question: question.question,
-      type: question.type,
-      answer: []
-    }));
-  }
 
   addCheckBoxAnswers(option: string, questionId: number) {
     let answerDef = this.answers.find(answer => answer.id === questionId);
