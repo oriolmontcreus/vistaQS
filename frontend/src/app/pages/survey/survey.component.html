@@ -1,4 +1,5 @@
 <div class="mainContainer">
+            <h1 class="titleClass">{{surveyTitle}}</h1>
     <div class="form-container" *ngFor="let question of questions; let i = index">
         <div class="form-field" *ngIf="question.type === 'text'">
             <label [for]="question.id.toString()">{{ question.question }}</label>
@@ -17,7 +18,7 @@
 
         <div class="form-field" *ngIf="question.type === 'multiple_select'">
             <label>{{ question.question }}</label>
-            <p-multiSelect [options]="question.options" [(ngModel)]="answers[i].answer" defaultLabel="Select an option"></p-multiSelect>
+            <p-multiSelect [options]="question.options" [(ngModel)]="answers[i].answer" placeholder="Select an option"></p-multiSelect>
         </div>
 
         <div class="form-field" *ngIf="question.type === 'solo_select'">

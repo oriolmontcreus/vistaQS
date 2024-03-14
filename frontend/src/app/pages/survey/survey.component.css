@@ -37,12 +37,17 @@
         width: 100%;
         margin-top: 10px;
     }
+
+    .titleClass{
+        margin-left: 20%;
+        width: fit-content
+    }
 }
 
 @media only screen and (max-width: 767px) {
 
     .mainContainer {
-        margin-top: 0;
+        margin-top: 20px;
     }
 
     .form-container {

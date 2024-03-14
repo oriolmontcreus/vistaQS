@@ -34,6 +34,6 @@ class SurveyController extends Controller
         if ($questionDefinitions === null) 
             return ApiResponse::error('Survey not assigned to the user', []);
 
-        return ApiResponse::success('Questions retrieved successfully', ['questions' => $questionDefinitions]);
+        return ApiResponse::success('Questions retrieved successfully', ['survey' => $questionDefinitions]);
     }
 }

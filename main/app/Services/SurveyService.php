@@ -32,7 +32,7 @@ class SurveyService
 
         $questions = $survey->questions()->with(['questionType', 'questionTypeOptions'])->get();
 
-        return $questions->map(function ($question) {
+        $questionDefinitions = $questions->map(function ($question) {
             $questionDefinition = [
                 'id' => $question->id,
                 'question' => $question->question,
@@ -45,5 +45,10 @@ class SurveyService
 
             return $questionDefinition;
         });
+
+        return [
+            'descr' => $survey->descr,
+            'questions' => $questionDefinitions
+        ];
     }
 }

@@ -25,6 +25,7 @@ export class SurveyComponent implements OnInit{
 
   answers: AnswerDefinition[] = []
   questions: QuestionDefinition[] = [];
+  surveyTitle: string = '';
 
   async ngOnInit() {
     try {
@@ -44,7 +45,6 @@ export class SurveyComponent implements OnInit{
       type: question.type,
       answer: question.type === 'range' ? [0, 1000] : []
     }));
-    console.log(this.answers);
   }
 
   async getSurveysForUser(idSurvey: number): Promise<QuestionDefinition[]> {
@@ -52,8 +52,8 @@ export class SurveyComponent implements OnInit{
     return new Promise((resolve, reject) => {
       this.surveyDataService.getSurveyGivenId(idSurvey).subscribe({
         next: data => {
-          console.log(data);
-          this.questions = data.payload.questions;
+          this.questions = data.payload.survey.questions;
+          this.surveyTitle = data.payload.survey.descr;
           resolve(this.questions);
         },
         error: () => {
