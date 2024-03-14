@@ -18,3 +18,32 @@
     align-items: center;
     z-index: 9999;
 }
+
+.start-date {
+    border-bottom: 2px solid green;
+}
+
+.end-date {
+    border-bottom: 2px solid red;
+}
+
+.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.equal-height>div>div {
+    flex-grow: 1;
+}
+
+.icon-container {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
