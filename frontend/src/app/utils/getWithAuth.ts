@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
+declare let localStorage: any;
 
 /**
  * This function makes an authenticated HTTP GET request.
