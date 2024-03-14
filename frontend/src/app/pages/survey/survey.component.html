@@ -15,24 +15,35 @@
             <input type="email" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputText />
         </div>
 
-        <div class="form-field" *ngIf="question.type === 'select'">
-            <label [for]="question.id.toString()">{{ question.question }}</label>
-            <p-dropdown [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" [options]="question.options"></p-dropdown>
+        <div class="form-field" *ngIf="question.type === 'multiple_select'">
+            <label>{{ question.question }}</label>
+            <p-multiSelect [options]="question.options" [(ngModel)]="answers[i].answer" defaultLabel="Select an option"></p-multiSelect>
         </div>
 
-        <div class="form-field" *ngIf="question.type === 'checkbox'">
+        <div class="form-field" *ngIf="question.type === 'solo_select'">
             <label>{{ question.question }}</label>
             <div *ngFor="let option of question.options; let j = index">
-                <p-checkbox [value]="option" (onChange)="addCheckBoxAnswers(option, question.id)" name="answer{{i}}Option{{j}}"></p-checkbox>
+                <p-radioButton [value]="option" [(ngModel)]="answers[i].answer" name="answer{{i}}"></p-radioButton>
                 <label>{{ option }}</label>
+            </div>
+        </div>  
+
+        <div class="form-field range-field" *ngIf="question.type === 'range'">
+            <label>{{ question.question }}</label>
+            <div>
+                <p-slider [(ngModel)]="answers[i].answer" [range]="true" [min]="0" [max]="1000" [style]="{'width':'200px'}"></p-slider>
+                <div class="range-values">
+                    <input type="text" [(ngModel)]="answers[i].answer[0]" pInputText style="width: 95px; margin-right: 10px;"/>
+                    <input type="text" [(ngModel)]="answers[i].answer[1]" pInputText style="width: 95px;"/>
+                </div>
             </div>
         </div>
 
         <div class="form-field" *ngIf="question.type === 'radio'">
             <label>{{ question.question }}</label>
             <div *ngFor="let option of question.options; let j = index">
-                <p-radioButton [value]="option" [(ngModel)]="answers[j].answer" name="answer{{i}}"></p-radioButton>
-                <label>{{ option }}</label>
+                <p-radioButton [value]="option" [(ngModel)]="answers[i].answer" name="answer{{i}}"></p-radioButton>
+                <label> {{ option }}</label>
             </div>
         </div>
 
@@ -45,4 +56,11 @@
         <p-button label="Submit" (click)="submitForm()"></p-button>
     </div>
 </div>
+
+
 <p-scrollTop></p-scrollTop>
+<div class="spinner-container" *ngIf="isLoading">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)"
+        animationDuration=".5s"></p-progressSpinner>
+</div>
+<p-toast></p-toast>

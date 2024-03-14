@@ -29,6 +29,9 @@ import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SliderModule } from 'primeng/slider';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { ToolbarModule } from 'primeng/toolbar';
     MenuModule,
     TableModule,
     CardModule,
-    ToolbarModule
+    ToolbarModule,
+    MultiSelectModule,
+    SliderModule,
+    InputNumberModule
   ],
   providers: [
     provideClientHydration(),

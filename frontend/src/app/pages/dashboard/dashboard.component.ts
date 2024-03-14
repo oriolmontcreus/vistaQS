@@ -40,11 +40,9 @@ export class DashboardComponent implements OnInit{
     this.isLoading = true;
     this.SurveyDataService.getSurveysForUser().subscribe({
       next: data => {
-        console.log(data);
         this.surveys = data.payload.surveys;
-        console.log(this.surveys);
       },
-      error: error => {
+      error: () => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
       },
       complete: () => {
