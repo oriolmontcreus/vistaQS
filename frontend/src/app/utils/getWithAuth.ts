@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-declare let localStorage: any;
 
 /**
  * This function makes an authenticated HTTP GET request.
@@ -11,7 +10,11 @@ declare let localStorage: any;
  * If the token is not found in local storage, it returns an Observable of null.
  */
 export function getWithAuth(http: HttpClient, url: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    let token;
+    
+    if (typeof window !== 'undefined')
+        token = window.localStorage.getItem('token');
+
     if (!token) return of(null);
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

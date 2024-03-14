@@ -31,7 +31,7 @@ export class SurveyComponent implements OnInit{
     try {
       this.route.paramMap.subscribe(async (params: ParamMap) => {
         this.idSurvey = Number(params.get('id'));
-        this.initializeAnswers(await this.getSurveysForUser(this.idSurvey));
+        this.initializeAnswers(await this.getSurveyGivenId(this.idSurvey));
       });
     } catch (error) {
       console.error(error);
@@ -47,7 +47,7 @@ export class SurveyComponent implements OnInit{
     }));
   }
 
-  async getSurveysForUser(idSurvey: number): Promise<QuestionDefinition[]> {
+  async getSurveyGivenId(idSurvey: number): Promise<QuestionDefinition[]> {
     this.isLoading = true;
     return new Promise((resolve, reject) => {
       this.surveyDataService.getSurveyGivenId(idSurvey).subscribe({

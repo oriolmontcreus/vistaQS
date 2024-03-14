@@ -29,18 +29,24 @@ export class DashboardComponent implements OnInit{
   }
 
   getUserData() {
-    const userData = localStorage.getItem('user');
-    if (userData)
-      this.user = JSON.parse(userData);
-    else 
-      this.router.navigate(['/']);
+    if (typeof localStorage !== 'undefined') {
+      const userData = localStorage.getItem('user');
+      if (userData)
+        this.user = JSON.parse(userData);
+      else 
+        this.router.navigate(['/']);
+    }
   }
 
   getSurveysForUser() {
     this.isLoading = true;
     this.SurveyDataService.getSurveysForUser().subscribe({
       next: data => {
-        this.surveys = data.payload.surveys;
+        if (data && data.payload) {
+          this.surveys = data.payload.surveys;
+        } else {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Data is null or payload is missing.' });
+        }
       },
       error: () => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
