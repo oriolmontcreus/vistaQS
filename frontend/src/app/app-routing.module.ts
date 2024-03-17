@@ -7,7 +7,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'survey', component: SurveyComponent },
+  { path: 'survey/:id', component: SurveyComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent }
 ];

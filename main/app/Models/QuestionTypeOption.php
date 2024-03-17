@@ -9,7 +9,7 @@ class QuestionTypeOption extends Model
 {
     use HasFactory;
 
-    protected $table = 'questionTypeOption';
+    protected $table = 'questiontype_option';
 
     protected $fillable = ['option', 'idQuestion'];
 

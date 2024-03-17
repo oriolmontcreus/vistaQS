@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +29,9 @@ import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SliderModule } from 'primeng/slider';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -60,10 +63,14 @@ import { ToolbarModule } from 'primeng/toolbar';
     MenuModule,
     TableModule,
     CardModule,
-    ToolbarModule
+    ToolbarModule,
+    MultiSelectModule,
+    SliderModule,
+    InputNumberModule
   ],
   providers: [
     provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

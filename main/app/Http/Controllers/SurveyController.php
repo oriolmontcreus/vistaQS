@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\SurveyService;
 use App\Helpers\ApiResponse;
-use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -21,5 +20,20 @@ class SurveyController extends Controller
         $surveys = $this->surveyService->getSurveysForUser();
 
         return ApiResponse::success('Surveys retrieved successfully', ['surveys' => $surveys]);
+    }
+
+    public function getSurveysGivenId($id)
+    {
+        $survey = $this->surveyService->getSurveyById($id);
+
+        if (!$survey) 
+            return ApiResponse::error('Survey not found', []);
+
+        $questionDefinitions = $this->surveyService->getQuestionDefinitions($survey);
+
+        if ($questionDefinitions === null) 
+            return ApiResponse::error('Survey not assigned to the user', []);
+
+        return ApiResponse::success('Questions retrieved successfully', ['survey' => $questionDefinitions]);
     }
 }

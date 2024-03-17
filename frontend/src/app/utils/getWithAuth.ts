@@ -10,7 +10,11 @@ import { Observable, of } from "rxjs";
  * If the token is not found in local storage, it returns an Observable of null.
  */
 export function getWithAuth(http: HttpClient, url: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    let token;
+    
+    if (typeof window !== 'undefined')
+        token = window.localStorage.getItem('token');
+
     if (!token) return of(null);
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import UserResponse from '@dto/types/User/UserResponse';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
@@ -12,7 +12,7 @@ import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
   providers: [MessageService],
 })
 
-export class DashboardComponent{
+export class DashboardComponent implements OnInit{
   constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService) {}
 
   user: UserResponse = {} as UserResponse;
@@ -24,23 +24,31 @@ export class DashboardComponent{
     this.getSurveysForUser();
   }
 
+  openSurvey(surveyId: number) {
+    this.router.navigate(['/survey', surveyId]);
+  }
+
   getUserData() {
-    const userData = localStorage.getItem('user');
-    if (userData)
-      this.user = JSON.parse(userData);
-    else 
-      this.router.navigate(['/']);
+    if (typeof localStorage !== 'undefined') {
+      const userData = localStorage.getItem('user');
+      if (userData)
+        this.user = JSON.parse(userData);
+      else 
+        this.router.navigate(['/']);
+    }
   }
 
   getSurveysForUser() {
     this.isLoading = true;
     this.SurveyDataService.getSurveysForUser().subscribe({
       next: data => {
-        console.log(data);
-        this.surveys = data.payload.surveys;
-        console.log(this.surveys);
+        if (data && data.payload) {
+          this.surveys = data.payload.surveys;
+        } else {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Data is null or payload is missing.' });
+        }
       },
-      error: error => {
+      error: () => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
       },
       complete: () => {

@@ -13,11 +13,6 @@ class Question extends Model
 
     protected $fillable = ['question', 'idQuestionType'];
 
-    public function questionType()
-    {
-        return $this->belongsTo(QuestionType::class, 'idQuestionType');
-    }
-
     public function surveys()
     {
         return $this->belongsToMany(Survey::class, 'survey_question', 'idQuestion', 'idSurvey');
@@ -26,6 +21,11 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class, 'idQuestion');
+    }
+
+    public function questionType()
+    {
+        return $this->belongsTo(QuestionType::class, 'idQuestionType');
     }
 
     public function questionTypeOptions()

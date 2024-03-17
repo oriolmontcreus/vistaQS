@@ -3,16 +3,15 @@
         <span class="text-900">Welcome, </span>
         <span class="text-purple-600">{{user.name}}</span>
     </div>
-    <div class="grid">
+    <div class="grid equal-height">
         <div class="col-12 md:col-6 lg:col-3">
             <div class="customBackground customBorder shadow-2 p-3 border-round">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Completed Surveys</span>
+                        <span class="block text-500 font-medium mb-3">User Completed Surveys</span>
                         <div class="text-900 font-medium text-xl">152</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-green-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
+                    <div class="icon-container flex align-items-center justify-content-center bg-green-100 border-round">
                         <i class="pi pi-check-circle text-green-500 text-xl"></i>
                     </div>
                 </div>
@@ -28,8 +27,7 @@
                         </span>
                         <div class="text-900 font-medium text-xl">5min 23s</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
+                    <div class="icon-container flex align-items-center justify-content-center bg-orange-100 border-round">
                         <i class="pi pi-clock text-orange-500 text-xl"></i>
                     </div>
                 </div>
@@ -44,8 +42,7 @@
                         <span class="block text-500 font-medium mb-3">Total Answered Questions</span>
                         <div class="text-900 font-medium text-xl">28441</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
+                    <div class="icon-container flex align-items-center justify-content-center bg-cyan-100 border-round">
                         <i class="pi pi-question text-cyan-500 text-xl"></i>
                     </div>
                 </div>
@@ -57,11 +54,11 @@
             <div class="customBackground customBorder shadow-2 p-3 border-round">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Available Surveys</span>
+                        <span class="block text-500 font-medium mb-3">Current Available Surveys
+                        </span>
                         <div class="text-900 font-medium text-xl">12</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
+                    <div class="icon-container flex align-items-center justify-content-center bg-purple-100 border-round">
                         <i class="pi pi-comment text-purple-500 text-xl"></i>
                     </div>
                 </div>
@@ -77,13 +74,14 @@
         [style]="{'background-color': '#252525', 'margin-top': '10px', 'margin-bottom': '20px', 'border-color': '#3a3a3a'}">
         <div class="p-d-flex p-ai-center p-jc-start">
             <h3 class="p-mr-2">{{survey.descr}}</h3>
-            <span class="p-mr-2">{{survey.startDate | date:'dd MMMM'}} - </span>
-            <span>{{survey.endDate | date:'dd MMMM'}}</span>
+            <span class="start-date" pTooltip="Complete start date: {{survey.startDate}}" tooltipPosition="top"> {{survey.startDate | date:'dd MMMM'}}</span>
+            <span> - </span>
+            <span class="end-date" pTooltip="Complete end date: {{survey.endDate}}" tooltipPosition="top"> {{survey.endDate | date:'dd MMMM'}}</span>
         </div>
         <div class="p-toolbar-group-right">
             <button pButton icon="pi pi-print" class="mr-2" pTooltip="Print" tooltipPosition="top" tooltipShowDelay="300"></button>
             <button pButton icon="pi pi-download" class="mr-2" pTooltip="Download" tooltipPosition="top" tooltipShowDelay="300"></button>
-            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey" tooltipPosition="top" tooltipShowDelay="300"></button>
+            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey" tooltipPosition="top" tooltipShowDelay="300" (click)="openSurvey(survey.id)"></button>
         </div>
     </p-toolbar>
 </div>
