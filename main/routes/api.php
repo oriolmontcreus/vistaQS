@@ -28,5 +28,5 @@ Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])
 /* SURVEYS RELATED */
 Route::get('/surveys', [SurveyController::class, 'getSurveysForUser'])->middleware('auth:sanctum');
 Route::get('/survey/{id}', [SurveyController::class, 'getSurveyGivenId'])->middleware('auth:sanctum');
-Route::post('/survey/answer', [SurveyController::class, 'postSurveyAnswers'])->middleware('auth:sanctum');
+Route::post('/survey/answers', [SurveyController::class, 'postSurveyAnswers'])->middleware('auth:sanctum');
 Route::post('/survey', [SurveyController::class, 'postNewSurvey'])->middleware('auth:sanctum');
