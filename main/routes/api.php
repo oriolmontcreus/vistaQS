@@ -15,6 +15,8 @@ use App\Http\Controllers\SurveyController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+/* USER RELATED */
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::post('/auth/logout', [AuthController::class, 'logoutUser'])->middleware('auth:sanctum');
@@ -22,5 +24,9 @@ Route::get('/user', [AuthController::class, 'getUserInfo'])->middleware('auth:sa
 Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])
     ->post('/auth/validate-token', [AuthController::class, 'validateToken']);
 
+
+/* SURVEYS RELATED */
 Route::get('/surveys', [SurveyController::class, 'getSurveysForUser'])->middleware('auth:sanctum');
-Route::get('/survey/{id}', [SurveyController::class, 'getSurveysGivenId'])->middleware('auth:sanctum');
+Route::get('/survey/{id}', [SurveyController::class, 'getSurveyGivenId'])->middleware('auth:sanctum');
+Route::post('/survey/answer', [SurveyController::class, 'postSurveyAnswers'])->middleware('auth:sanctum');
+Route::post('/survey', [SurveyController::class, 'postNewSurvey'])->middleware('auth:sanctum');
