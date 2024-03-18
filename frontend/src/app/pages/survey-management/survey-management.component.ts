@@ -13,7 +13,13 @@ import { MessageService, SelectItem } from 'primeng/api';
 })
 export class SurveyManagementComponent implements OnInit {
 
-  survey!: SurveyDefinition;
+  survey: SurveyDefinition = {
+    id: 0,
+    descr: 'A very cool survey about...',
+    startDate: new Date(),
+    endDate: new Date(new Date().setMonth(new Date().getMonth() + 1))
+  };
+
   questions: QuestionDefinition[] = [];
   questionTypes!: SelectItem[];
   clonedQuestions: { [s: number]: QuestionDefinition } = {};

@@ -1,6 +1,28 @@
 <div class="container">
     <div>
         <form (ngSubmit)="onSubmit()">
+            <div class="surveyFields">
+                <div class="p-field p-grid">
+                    <span class="p-float-label">
+                        <input id="descr" type="text" pInputText [(ngModel)]="survey.descr" name="description">
+                        <label for="descr">Description:</label>
+                    </span>
+                </div>
+
+                <div class="p-field p-grid">
+                    <span class="p-float-label">
+                        <p-calendar id="startDate" [(ngModel)]="survey.startDate" dateFormat="yy-mm-dd" name="startDate"></p-calendar>
+                        <label for="startDate">Start Date:</label>
+                    </span>
+                </div>
+
+                <div class="p-field p-grid">
+                    <span class="p-float-label">
+                        <p-calendar id="endDate" [(ngModel)]="survey.endDate" dateFormat="yy-mm-dd" name="endDate"></p-calendar>
+                        <label for="endDate">End Date:</label>
+                    </span>
+                </div>
+            </div>
             <p-table [value]="questions" dataKey="id" editMode="row" [style]="{'border-radius': '20px', 'border': '1px solid #3a3a3a', 'padding': '20px'}">
                 <ng-template pTemplate="header">
                     <tr>
@@ -62,7 +84,7 @@
 
             <div class="actionsContainer">
                 <button pButton type="button" label="Add Question" (click)="addQuestion()"></button>
-                <button pButton type="submit" label="Submit" class="p-ml-2"></button>
+                <button pButton type="submit" label="Submit" class="p-button-success"></button>
             </div>
         </form>
     </div>
