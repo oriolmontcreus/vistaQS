@@ -24,6 +24,9 @@ Route::get('/user', [AuthController::class, 'getUserInfo'])->middleware('auth:sa
 Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])
     ->post('/auth/validate-token', [AuthController::class, 'validateToken']);
 
+/* SURVEYORS RELATED */
+Route::get('/surveyors', [AuthController::class, 'getAvailableSurveyors'])->middleware('auth:sanctum');
+
 
 /* SURVEYS RELATED */
 Route::get('/surveys', [SurveyController::class, 'getSurveysForUser'])->middleware('auth:sanctum');

@@ -22,6 +22,7 @@ export class SurveyManagementComponent implements OnInit {
 
   questions: QuestionDefinition[] = [];
   questionTypes!: SelectItem[];
+  idSurveyors: number[] = [];
   clonedQuestions: { [s: number]: QuestionDefinition } = {};
 
   constructor(private surveyDataService: SurveyDataService, private messageService: MessageService) {}
