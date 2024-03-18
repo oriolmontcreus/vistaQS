@@ -44,9 +44,14 @@ export class SurveyManagementComponent implements OnInit {
   }
 
   onRowEditSave(question: QuestionDefinition) {
-    // Add your validation logic here
+    if (question.type !== 'text' && question.type !== 'number' && (!question.options || question.options.length < 2)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'At least 2 options are required.' });
+      Object.assign(question, this.clonedQuestions[question.id]);
+      return;
+    }
+
     delete this.clonedQuestions[question.id];
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question is updated' });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question updated correctly' });
   }
 
   onRowEditCancel(question: QuestionDefinition, index: number) {
@@ -55,16 +60,12 @@ export class SurveyManagementComponent implements OnInit {
   }
 
   onSubmit() {
-    // Convert options from string to array
-    this.questions.forEach(question => {
-      question.options = question.options![0].split(',');
-    });
-
     const surveyData: SurveyCreationRequest = {
       survey: this.survey,
       questions: this.questions,
       idSurveyors: [] // Replace with your actual surveyor IDs
     };
-    this.surveyDataService.postNewSurvey(surveyData).subscribe();
+    console.log(surveyData);
+    // this.surveyDataService.postNewSurvey(surveyData).subscribe();
   }
 }

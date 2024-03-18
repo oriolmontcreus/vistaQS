@@ -33,6 +33,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ChipsModule } from 'primeng/chips';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     MultiSelectModule,
     SliderModule,
     InputNumberModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChipsModule
   ],
   providers: [
     provideClientHydration(),
