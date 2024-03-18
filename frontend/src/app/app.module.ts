@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
@@ -10,6 +10,7 @@ import { SurveyComponent } from './pages/survey/survey.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SurveyManagementComponent } from './pages/survey-management/survey-management.component';
 
 //PRIME NG
 import { ButtonModule } from 'primeng/button';
@@ -40,6 +41,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     LoginComponent,
     HomeComponent,
     DashboardComponent,
+    SurveyManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ToolbarModule,
     MultiSelectModule,
     SliderModule,
-    InputNumberModule
+    InputNumberModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),

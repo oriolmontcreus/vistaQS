@@ -1,18 +1,10 @@
+import QuestionDefinition from "@dto/types/Survey/QuestionDefinition";
+import SurveyDefinition from "@dto/types/Survey/SurveyDefinition";
+
 type SurveyCreationRequest = {
-    survey: {
-        descr: string;
-        startDate: string;
-        endDate: string;
-    };
-    questions: {
-        question: string;
-        idQuestionType: number;
-        options?: {
-            idAnswer: number;
-            descr: string;
-        }[];
-    }[];
-    idSurveyor: number;
+    survey: SurveyDefinition;
+    questions: QuestionDefinition[];
+    idSurveyors: number[];
 };
 
 export default SurveyCreationRequest;

@@ -1,0 +1,55 @@
+<form (ngSubmit)="onSubmit()">
+    <p-table [value]="questions" dataKey="id" editMode="row">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Question</th>
+                <th>Type</th>
+                <th>Options</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-question let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="question">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="question.question" name="question{{ri}}">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{question.question}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="questionTypes" appendTo="body" [(ngModel)]="question.type" name="questionTypes{{ri}}" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{question.type}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="question.options" name="options{{ri}}" placeholder="Enter options separated by commas" [disabled]="question.type === 'text' || question.type === 'number'">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{question.options}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(question)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(question)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(question, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button pButton type="button" label="Add Question" (click)="addQuestion()"></button>
+    <button pButton type="submit" label="Submit"></button>
+</form>
