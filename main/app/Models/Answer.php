@@ -11,7 +11,7 @@ class Answer extends Model
 
     protected $table = 'answer';
 
-    protected $fillable = ['answer', 'idQuestion', 'idSurveyor'];
+    protected $fillable = ['answer', 'idQuestion'];
 
     public $timestamps = false;
 

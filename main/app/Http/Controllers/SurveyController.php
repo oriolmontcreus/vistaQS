@@ -88,6 +88,13 @@ class SurveyController extends Controller
                 $question = new Question();
                 $question->question = $questionData['question'];
                 $question->idQuestionType = $questionType->id;
+
+                // Handle min and max for range question type
+                if ($questionData['type'] == 'range' && isset($questionData['options']) && count($questionData['options']) == 2) {
+                    $question->min = $questionData['options'][0];
+                    $question->max = $questionData['options'][1];
+                }
+
                 $question->save();
                 $questionIds[] = $question->id;
 

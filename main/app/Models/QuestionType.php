@@ -11,7 +11,7 @@ class QuestionType extends Model
 
     protected $table = 'questiontype';
 
-    protected $fillable = ['type'];
+    protected $fillable = ['typeName'];
 
     public $timestamps = false;
 
