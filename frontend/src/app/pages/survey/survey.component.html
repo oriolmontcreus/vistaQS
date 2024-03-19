@@ -6,7 +6,7 @@
             <input type="text" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputText />
         </div>
 
-        <div class="form-field" *ngIf="question.type === 'date'">
+        <!-- <div class="form-field" *ngIf="question.type === 'date'">
             <label [for]="question.id.toString()">{{ question.question }}</label>
             <p-calendar [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}"></p-calendar>
         </div>
@@ -14,7 +14,7 @@
         <div class="form-field" *ngIf="question.type === 'email'">
             <label [for]="question.id.toString()">{{ question.question }}</label>
             <input type="email" [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputText />
-        </div>
+        </div> -->
 
         <div class="form-field" *ngIf="question.type === 'multiple_select'">
             <label>{{ question.question }}</label>
@@ -25,14 +25,14 @@
             <label>{{ question.question }}</label>
             <div *ngFor="let option of question.options; let j = index">
                 <p-radioButton [value]="option" [(ngModel)]="answers[i].answer" name="answer{{i}}"></p-radioButton>
-                <label>{{ option }}</label>
+                <label> {{ option }}</label>
             </div>
         </div>  
 
         <div class="form-field range-field" *ngIf="question.type === 'range'">
             <label>{{ question.question }}</label>
             <div>
-                <p-slider [(ngModel)]="answers[i].answer" [range]="true" [min]="0" [max]="1000" [style]="{'width':'200px'}"></p-slider>
+                <p-slider [(ngModel)]="answers[i].answer" [range]="true" [min]="question.min!" [max]="question.max!" [style]="{'width':'200px'}"></p-slider>
                 <div class="range-values">
                     <input type="text" [(ngModel)]="answers[i].answer[0]" pInputText style="width: 95px; margin-right: 10px;"/>
                     <input type="text" [(ngModel)]="answers[i].answer[1]" pInputText style="width: 95px;"/>
@@ -40,10 +40,10 @@
             </div>
         </div>
 
-        <div class="form-field" *ngIf="question.type === 'textarea'">
+        <!-- <div class="form-field" *ngIf="question.type === 'textarea'">
             <label [for]="question.id.toString()">{{ question.question }}</label>
             <textarea [id]="question.id.toString()" [(ngModel)]="answers[i].answer" name="answer{{i}}" pInputTextarea rows="5" cols="30"></textarea>
-        </div>
+        </div> -->
     </div>
     <div class="button-container">
         <p-button label="Submit" (click)="submitForm()"></p-button>

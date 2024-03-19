@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,19 +13,70 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Insert into users table
+        $userId = DB::table('users')->insertGetId([
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => bcrypt('1234'),
+            'city' => 'Test City',
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Insert into questiontype table
+        DB::table('questiontype')->insert([
+            ['typeName' => 'text'],
+            ['typeName' => 'multiple_select'],
+            ['typeName' => 'solo_select'],
+            ['typeName' => 'range'],
+        ]);
 
-        $this->call(QuestionTypeSeeder::class);
-        $this->call(QuestionSeeder::class);
-        $this->call(SurveySeeder::class);
-        $this->call(AnswerSeeder::class);
-        $this->call(QuestionTypeOptionSeeder::class);
-        $this->call(SurveySurveyorSeeder::class);
-        $this->call(SurveyQuestionSeeder::class);
+        // Insert into survey table
+        $surveyId = DB::table('survey')->insertGetId([
+            'descr' => 'This is a test survey',
+            'startDate' => now(),
+            'endDate' => now()->addMonth(),
+        ]);
+
+        // Assign the survey to the user
+        DB::table('survey_surveyor')->insert([
+            'idSurvey' => $surveyId,
+            'idSurveyor' => $userId,
+        ]);
+
+        // Insert into question table and assign them to the survey
+        $questionIds = [];
+        $questions = [
+            ['question' => 'What is your favorite color?', 'idQuestionType' => 1],
+            ['question' => 'Select your favorite fruits', 'idQuestionType' => 2],
+            ['question' => 'Are you a human?', 'idQuestionType' => 3],
+            ['question' => 'Rate your experience from 1 to 10', 'idQuestionType' => 4, 'min' => 1, 'max' => 10],
+        ];
+        foreach ($questions as $question) {
+            $questionId = DB::table('question')->insertGetId($question);
+            $questionIds[] = $questionId;
+            DB::table('survey_question')->insert([
+                'idSurvey' => $surveyId,
+                'idQuestion' => $questionId,
+            ]);
+        }
+
+        // Insert options for the 'Select your favorite fruits' question
+        $fruitOptions = ['apple', 'banana', 'pineapple', 'orange'];
+        foreach ($fruitOptions as $option) {
+            DB::table('questiontype_option')->insert([
+                'idQuestion' => $questionIds[1],
+                'descr' => $option,
+            ]);
+        }
+
+        // Insert options for the 'Are you a human?' question
+        $humanOptions = ['Yes', 'No'];
+        foreach ($humanOptions as $option) {
+            DB::table('questiontype_option')->insert([
+                'idQuestion' => $questionIds[2],
+                'descr' => $option,
+            ]);
+        }
     }
+
+    
 }

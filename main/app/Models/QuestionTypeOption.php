@@ -11,7 +11,7 @@ class QuestionTypeOption extends Model
 
     protected $table = 'questiontype_option';
 
-    protected $fillable = ['option', 'idQuestion'];
+    protected $fillable = ['descr', 'idQuestion'];
 
     public $timestamps = false;
 
