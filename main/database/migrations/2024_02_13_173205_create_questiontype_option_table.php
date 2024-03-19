@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,10 +15,8 @@ return new class extends Migration
         Schema::create('questiontype_option', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idQuestion');
-            $table->unsignedBigInteger('idAnswer');
             $table->text('descr');
             $table->foreign('idQuestion')->references('id')->on('question');
-            $table->foreign('idAnswer')->references('id')->on('answer');
         });
     }
 
