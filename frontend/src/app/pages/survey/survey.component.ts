@@ -52,6 +52,7 @@ export class SurveyComponent implements OnInit{
     return new Promise((resolve, reject) => {
       this.surveyDataService.getSurveyGivenId(idSurvey).subscribe({
         next: data => {
+          console.log(data.payload);
           this.questions = data.payload.survey.questions;
           this.surveyTitle = data.payload.survey.descr;
           resolve(this.questions);

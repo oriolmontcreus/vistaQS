@@ -13,6 +13,8 @@ class Survey extends Model
 
     protected $fillable = ['descr', 'startDate', 'endDate'];
 
+    public $timestamps = false;
+
     public function surveyors()
     {
         return $this->belongsToMany(User::class, 'survey_surveyor', 'idSurvey', 'idSurveyor');

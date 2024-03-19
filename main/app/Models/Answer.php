@@ -13,6 +13,8 @@ class Answer extends Model
 
     protected $fillable = ['answer', 'idQuestion', 'idSurveyor'];
 
+    public $timestamps = false;
+
     public function question()
     {
         return $this->belongsTo(Question::class, 'idQuestion');

@@ -13,6 +13,8 @@ class QuestionType extends Model
 
     protected $fillable = ['type'];
 
+    public $timestamps = false;
+
     public function questions()
     {
         return $this->hasMany(Question::class, 'idQuestionType');
