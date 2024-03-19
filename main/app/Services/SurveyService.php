@@ -37,6 +37,8 @@ class SurveyService
                 'id' => $question->id,
                 'question' => $question->question,
                 'type' => $question->questionType->typeName,
+                'min' => $question->min,
+                'max' => $question->max,
             ];
 
             if ($question->questionTypeOptions->isNotEmpty()) {

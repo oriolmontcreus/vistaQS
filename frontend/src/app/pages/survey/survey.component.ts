@@ -43,7 +43,9 @@ export class SurveyComponent implements OnInit{
       id: question.id,
       question: question.question,
       type: question.type,
-      answer: question.type === 'range' ? [0, 1000] : []
+      answer: question.type === 'range' && question.min !== undefined && question.max !== undefined 
+      ? [question.min.toString(), question.max.toString()] 
+      : [],
     }));
   }
 
