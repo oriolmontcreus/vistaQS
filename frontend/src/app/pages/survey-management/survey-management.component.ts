@@ -7,6 +7,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from '../../services/AuthService.service';
 import AvailableSurveyor from '@dto/responses/AvailableSurveyor';
 import { AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import ResConst from '@dto/types/General/ResConst';
 
 @Component({
   selector: 'app-survey-management',
@@ -41,7 +42,7 @@ export class SurveyManagementComponent implements OnInit {
         { label: 'Solo Select', value: 'solo_select' },
         { label: 'Multiple Select', value: 'multiple_select' },
         { label: 'Text', value: 'text' },
-        { label: 'Range', value: 'number' }
+        { label: 'Range', value: 'range' }
     ];
   }
 
@@ -95,13 +96,37 @@ export class SurveyManagementComponent implements OnInit {
     });
   }
 
+  postSurvey(surveyData: SurveyCreationRequest) {
+    this.isLoading = true;
+    // if (!this.validateUserPayload()) {
+    //   this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all fields.' });
+    //   this.userPayload.password = '';
+    //   return;
+    // }
+    this.surveyDataService.postNewSurvey(surveyData).subscribe({
+      next: data => {
+        if (data.status === ResConst.RES_SUCCESS) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successful!' });
+        }
+        else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Survey creation failed. Please try again' });
+        }
+      },
+      error: error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
   onSubmit() {
     const surveyData: SurveyCreationRequest = {
       survey: this.survey,
       questions: this.questions,
       idSurveyors: this.selectedSurveyors.map(surveyor => surveyor.id)
     };
-    console.log(surveyData);
-    // this.surveyDataService.postNewSurvey(surveyData).subscribe();
+    this.postSurvey(surveyData);
   }
 }

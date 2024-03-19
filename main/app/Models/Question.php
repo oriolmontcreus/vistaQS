@@ -13,6 +13,8 @@ class Question extends Model
 
     protected $fillable = ['question', 'idQuestionType'];
 
+    public $timestamps = false;
+
     public function surveys()
     {
         return $this->belongsToMany(Survey::class, 'survey_question', 'idQuestion', 'idSurvey');

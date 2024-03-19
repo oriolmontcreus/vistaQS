@@ -11,6 +11,8 @@ use App\Models\Survey;
 use App\Models\Question;
 use App\Models\QuestionTypeOption;
 use App\Models\User;
+use App\Models\QuestionType;
+use Illuminate\Support\Facades\DB;
 
 
 class SurveyController extends Controller
@@ -34,12 +36,12 @@ class SurveyController extends Controller
     {
         $survey = $this->surveyService->getSurveyById($id);
 
-        if (!$survey) 
+        if (!$survey)
             return ApiResponse::error('Survey not found', []);
 
         $questionDefinitions = $this->surveyService->getQuestionDefinitions($survey);
 
-        if ($questionDefinitions === null) 
+        if ($questionDefinitions === null)
             return ApiResponse::error('Survey not assigned to the user', []);
 
         return ApiResponse::success('Questions retrieved successfully', ['survey' => $questionDefinitions]);
@@ -65,42 +67,59 @@ class SurveyController extends Controller
 
     public function postNewSurvey(Request $request)
     {
-        $surveyRequest = $request->all();
+        try {
+            DB::beginTransaction(); // Start a new database transaction
 
-        if (empty($surveyRequest)) return ApiResponse::error('No survey data provided');
+            $surveyRequest = $request->all();
 
-        $survey = new Survey();
-        $survey->descr = $surveyRequest['survey']['descr'];
-        $survey->startDate = $surveyRequest['survey']['startDate'];
-        $survey->endDate = $surveyRequest['survey']['endDate'];
-        $survey->save();
+            if (empty($surveyRequest)) return ApiResponse::error('No survey data provided');
 
-        $questionIds = [];
-        foreach ($surveyRequest['questions'] as $questionData) {
-            $question = new Question();
-            $question->question = $questionData['question'];
-            $question->idQuestionType = $questionData['idQuestionType'];
-            $question->save();
-            $questionIds[] = $question->id;
+            $survey = new Survey();
+            $survey->descr = $surveyRequest['survey']['descr'];
+            $survey->startDate = date('Y-m-d H:i:s', strtotime($surveyRequest['survey']['startDate']));
+            $survey->endDate = date('Y-m-d H:i:s', strtotime($surveyRequest['survey']['endDate']));
+            $survey->save();
 
-            if (isset($questionData['options'])) {
-                foreach ($questionData['options'] as $optionData) {
-                    $option = new QuestionTypeOption();
-                    $option->idQuestion = $question->id;
-                    $option->idAnswer = $optionData['idAnswer'];
-                    $option->descr = $optionData['descr'];
-                    $option->save();
+            $questionIds = [];
+            foreach ($surveyRequest['questions'] as $questionData) {
+                $questionType = QuestionType::where('typeName', $questionData['type'])->first();
+                if (!$questionType) return ApiResponse::error('Question type not found');
+
+                $question = new Question();
+                $question->question = $questionData['question'];
+                $question->idQuestionType = $questionType->id;
+                $question->save();
+                $questionIds[] = $question->id;
+
+                if ($questionData['type'] != 'text' && isset($questionData['options']) && is_array($questionData['options'])) {
+                    foreach ($questionData['options'] as $optionData) {
+                        $option = new QuestionTypeOption();
+                        $option->idQuestion = $question->id;
+                        $option->descr = $optionData;
+                        $option->save();
+                    }
                 }
             }
-        }
 
-        $survey->questions()->attach($questionIds);
+            $survey->questions()->attach($questionIds);
 
-        $user = User::find($surveyRequest['idSurveyor']);
-        if ($user) {
-            $user->surveys()->attach($survey->id);
-        } else {
-            return ApiResponse::error('Surveyor not found');
+            if (isset($surveyRequest['idSurveyors']) && is_array($surveyRequest['idSurveyors'])) {
+                foreach ($surveyRequest['idSurveyors'] as $idSurveyor) {
+                    $user = User::find($idSurveyor);
+                    if ($user) {
+                        $user->surveys()->attach($survey->id);
+                    } else {
+                        return ApiResponse::error('Surveyor with id ' . $idSurveyor . ' not found');
+                    }
+                }
+            }
+
+            DB::commit(); // Commit the transaction
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Roll back the transaction
+
+            return ApiResponse::error('An error occurred: ' . $e->getMessage());
         }
 
         return ApiResponse::success('Survey created successfully');

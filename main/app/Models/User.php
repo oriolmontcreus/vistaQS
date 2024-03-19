@@ -60,4 +60,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Add this method
+    public function surveys()
+    {
+        return $this->belongsToMany(Survey::class, 'survey_surveyor', 'idSurveyor', 'idSurvey');
+    }
 }
