@@ -22,6 +22,9 @@
                         <label for="endDate">End Date:</label>
                     </span>
                 </div>
+
+                <p-multiSelect [options]="availableSurveyors" [(ngModel)]="selectedSurveyors" name="surveyors" optionLabel="name" placeholder="Select surveyors" [filter]="true">
+                </p-multiSelect>
             </div>
             <p-table [value]="questions" dataKey="id" editMode="row" [style]="{'border-radius': '20px', 'border': '1px solid #3a3a3a', 'padding': '20px'}">
                 <ng-template pTemplate="header">

@@ -4,6 +4,9 @@ import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
 import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
 import { MessageService, SelectItem } from 'primeng/api';
+import { AuthService } from '../../services/AuthService.service';
+import AvailableSurveyor from '@dto/responses/AvailableSurveyor';
+import { AutoCompleteSelectEvent } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-survey-management',
@@ -20,15 +23,20 @@ export class SurveyManagementComponent implements OnInit {
     endDate: new Date(new Date().setMonth(new Date().getMonth() + 1))
   };
 
+  isLoading: boolean = false;
+
   questions: QuestionDefinition[] = [];
   questionTypes!: SelectItem[];
-  idSurveyors: number[] = [];
+
+  selectedSurveyors: AvailableSurveyor[] = [];
+  availableSurveyors: AvailableSurveyor[] = [];
+
   clonedQuestions: { [s: number]: QuestionDefinition } = {};
 
-  constructor(private surveyDataService: SurveyDataService, private messageService: MessageService) {}
+  constructor(private surveyDataService: SurveyDataService, private messageService: MessageService, private authService: AuthService) {}
 
   ngOnInit() {
-
+    this.getAvailableSurveyors();
     this.questionTypes = [
         { label: 'Solo Select', value: 'solo_select' },
         { label: 'Multiple Select', value: 'multiple_select' },
@@ -66,11 +74,32 @@ export class SurveyManagementComponent implements OnInit {
     delete this.clonedQuestions[question.id];
   }
 
+  getAvailableSurveyors() {
+    this.isLoading = true;
+    this.authService.getAvailableSurveyors().subscribe({
+      next: data => {
+        console.log(data);
+        if (data && data.payload) {
+          this.availableSurveyors = data.payload.surveyors;
+          console.log(this.availableSurveyors);
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error getting available surveyors' });
+        }
+      },
+      error: () => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
   onSubmit() {
     const surveyData: SurveyCreationRequest = {
       survey: this.survey,
       questions: this.questions,
-      idSurveyors: [] // Replace with your actual surveyor IDs
+      idSurveyors: this.selectedSurveyors.map(surveyor => surveyor.id)
     };
     console.log(surveyData);
     // this.surveyDataService.postNewSurvey(surveyData).subscribe();

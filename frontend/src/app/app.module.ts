@@ -34,6 +34,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ChipsModule } from 'primeng/chips';
     SliderModule,
     InputNumberModule,
     ReactiveFormsModule,
-    ChipsModule
+    ChipsModule,
+    AutoCompleteModule
   ],
   providers: [
     provideClientHydration(),
