@@ -93,4 +93,20 @@ class AuthController extends Controller
             return ApiResponse::error($th->getMessage());
         }
     }
+
+        /**
+     * Get all available surveyors.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAvailableSurveyors()
+    {
+        try {
+            $availableSurveyors = $this->authService->getAvailableSurveyors();
+
+            return ApiResponse::success('Available surveyors retrieved successfully', ['surveyors' => $availableSurveyors]);
+        } catch (\Throwable $th) {
+            return ApiResponse::error($th->getMessage());
+        }
+    }
 }

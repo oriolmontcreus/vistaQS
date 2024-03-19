@@ -77,4 +77,24 @@ class AuthService
 
         return $user;
     }
+
+    /**
+     * Get all surveyors.
+     *
+     * @return array
+     */
+    public function getAvailableSurveyors()
+    {
+        $surveyors = User::get(['name', 'id']);
+
+        $availableSurveyors = [];
+        foreach ($surveyors as $surveyor) {
+            $availableSurveyors[] = [
+                'name' => $surveyor->name,
+                'id' => $surveyor->id,
+            ];
+        }
+
+        return $availableSurveyors;
+    }
 }

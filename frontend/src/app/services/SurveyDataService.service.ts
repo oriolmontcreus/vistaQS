@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { URI } from '../../environment'
 import { tap } from 'rxjs/operators';
 import { getWithAuth } from '../utils/getWithAuth';
+import SurveyCreationRequest from '@dto/payloads/SurveyCreationRequest';
+import AnswerDefinition from '@dto/types/Survey/AnswerDefinition';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,30 @@ export class SurveyDataService {
 
   getSurveyGivenId(id: number): Observable<any> {
     return getWithAuth(this.http, `${URI}/survey/${id}`).pipe(
+      tap({
+        next: () => { },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => { }
+      })
+    );
+  }
+
+  postNewSurvey(surveyData: SurveyCreationRequest): Observable<any> {
+    return this.http.post(`${URI}/survey`, surveyData).pipe(
+      tap({
+        next: () => { },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => { }
+      })
+    );
+  }
+
+  postSurveyAnswers(answers: AnswerDefinition[]): Observable<any> {
+    return this.http.post(`${URI}/survey/answers`, answers).pipe(
       tap({
         next: () => { },
         error: (error) => {

@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit{
         if (data && data.payload) {
           this.surveys = data.payload.surveys;
         } else {
-          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Data is null or payload is missing.' });
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Error while getting available surveys for the user' });
         }
       },
       error: () => {
