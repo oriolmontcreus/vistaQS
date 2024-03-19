@@ -103,10 +103,8 @@ export class SurveyManagementComponent implements OnInit {
     //   this.userPayload.password = '';
     //   return;
     // }
-    //TODO REMEMBER ME (THE TRUE)
     this.surveyDataService.postNewSurvey(surveyData).subscribe({
       next: data => {
-        console.log(data);
         if (data.status === ResConst.RES_SUCCESS) {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Successful!' });
         }
@@ -129,7 +127,6 @@ export class SurveyManagementComponent implements OnInit {
       questions: this.questions,
       idSurveyors: this.selectedSurveyors.map(surveyor => surveyor.id)
     };
-    console.log(surveyData);
     this.postSurvey(surveyData);
   }
 }

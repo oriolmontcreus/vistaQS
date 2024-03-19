@@ -93,14 +93,8 @@ class SurveyController extends Controller
 
                 if ($questionData['type'] != 'text' && isset($questionData['options']) && is_array($questionData['options'])) {
                     foreach ($questionData['options'] as $optionData) {
-                        $answer = new Answer();
-                        $answer->answer = $optionData;
-                        $answer->idQuestion = $question->id;
-                        $answer->save();
-
                         $option = new QuestionTypeOption();
                         $option->idQuestion = $question->id;
-                        $option->idAnswer = $answer->id;
                         $option->descr = $optionData;
                         $option->save();
                     }
