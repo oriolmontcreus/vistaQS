@@ -52,7 +52,9 @@ export class DashboardComponent implements OnInit{
     this.isLoading = true;
     this.authService.getUserData().subscribe({
       next: data => {
-        if (data && data.payload) {
+        if (!data)
+          this.router.navigate(['/']);
+        if (data && data.payload) {          
           this.user = data.payload.user;
           this.userAdminPerms(this.user);
         } else {

@@ -1,7 +1,14 @@
 <div class="px-4 py-5 md:px-6 lg:px-8">
-    <div class="mb-3 font-bold text-3xl">
+    <div class="mb-3 font-bold text-3xl" *ngIf="surveys.length > 0">
         <span class="text-900">Welcome, </span>
         <span class="text-purple-600">{{user.name}}</span>
+    </div>
+
+    <div class="p-d-flex p-jc-center p-ai-center p-absolute" style="top: 0; right: 0; bottom: 0; left: 0; border: 2px solid red; border-radius: 7px; padding: 20px;" *ngIf="surveys.length === 0">
+        <div class="p-m-2">
+            <h2>No surveys available</h2>
+            <p>Please check back later or ask the administrator to assign you new surveys</p>
+        </div>
     </div>
 
     <div *ngIf="items.length > 0">
@@ -9,7 +16,7 @@
         [style]="{'background-color': '#252525', 'margin-top': '10px', 'margin-bottom': '40px', 'border-color': '#3a3a3a'}"></p-menubar>
     </div>
 
-    <div class="grid equal-height">
+    <div class="grid equal-height" *ngIf="surveys.length > 0">
         <div class="col-12 md:col-6 lg:col-3">
             <div class="customBackground customBorder shadow-2 p-3 border-round">
                 <div class="flex justify-content-between mb-3">
