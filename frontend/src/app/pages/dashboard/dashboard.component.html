@@ -4,7 +4,10 @@
         <span class="text-purple-600">{{user.name}}</span>
     </div>
 
-    <button pButton type="button" label="Create Survey" class="p-button-success" routerLink="/survey/manage"></button>
+    <div *ngIf="items.length > 0">
+    <p-menubar [model]="items"
+        [style]="{'background-color': '#252525', 'margin-top': '10px', 'margin-bottom': '40px', 'border-color': '#3a3a3a'}"></p-menubar>
+    </div>
 
     <div class="grid equal-height">
         <div class="col-12 md:col-6 lg:col-3">
@@ -14,7 +17,8 @@
                         <span class="block text-500 font-medium mb-3">User Completed Surveys</span>
                         <div class="text-900 font-medium text-xl">152</div>
                     </div>
-                    <div class="icon-container flex align-items-center justify-content-center bg-green-100 border-round">
+                    <div
+                        class="icon-container flex align-items-center justify-content-center bg-green-100 border-round">
                         <i class="pi pi-check-circle text-green-500 text-xl"></i>
                     </div>
                 </div>
@@ -30,7 +34,8 @@
                         </span>
                         <div class="text-900 font-medium text-xl">5min 23s</div>
                     </div>
-                    <div class="icon-container flex align-items-center justify-content-center bg-orange-100 border-round">
+                    <div
+                        class="icon-container flex align-items-center justify-content-center bg-orange-100 border-round">
                         <i class="pi pi-clock text-orange-500 text-xl"></i>
                     </div>
                 </div>
@@ -61,7 +66,8 @@
                         </span>
                         <div class="text-900 font-medium text-xl">12</div>
                     </div>
-                    <div class="icon-container flex align-items-center justify-content-center bg-purple-100 border-round">
+                    <div
+                        class="icon-container flex align-items-center justify-content-center bg-purple-100 border-round">
                         <i class="pi pi-comment text-purple-500 text-xl"></i>
                     </div>
                 </div>
@@ -77,14 +83,19 @@
         [style]="{'background-color': '#252525', 'margin-top': '10px', 'margin-bottom': '20px', 'border-color': '#3a3a3a'}">
         <div class="p-d-flex p-ai-center p-jc-start">
             <h3 class="p-mr-2">{{survey.descr}}</h3>
-            <span class="start-date" pTooltip="Complete start date: {{survey.startDate}}" tooltipPosition="top"> {{survey.startDate | date:'dd MMMM'}}</span>
+            <span class="start-date" pTooltip="Complete start date: {{survey.startDate}}" tooltipPosition="top">
+                {{survey.startDate | date:'dd MMMM'}}</span>
             <span> - </span>
-            <span class="end-date" pTooltip="Complete end date: {{survey.endDate}}" tooltipPosition="top"> {{survey.endDate | date:'dd MMMM'}}</span>
+            <span class="end-date" pTooltip="Complete end date: {{survey.endDate}}" tooltipPosition="top">
+                {{survey.endDate | date:'dd MMMM'}}</span>
         </div>
         <div class="p-toolbar-group-right">
-            <button pButton icon="pi pi-print" class="mr-2" pTooltip="Print" tooltipPosition="top" tooltipShowDelay="300"></button>
-            <button pButton icon="pi pi-download" class="mr-2" pTooltip="Download" tooltipPosition="top" tooltipShowDelay="300"></button>
-            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey" tooltipPosition="top" tooltipShowDelay="300" (click)="openSurvey(survey.id)"></button>
+            <button pButton icon="pi pi-print" class="mr-2" pTooltip="Print" tooltipPosition="top"
+                tooltipShowDelay="300"></button>
+            <button pButton icon="pi pi-download" class="mr-2" pTooltip="Download" tooltipPosition="top"
+                tooltipShowDelay="300"></button>
+            <button pButton icon="pi pi-file-edit" class="p-button-success" pTooltip="Answer Survey"
+                tooltipPosition="top" tooltipShowDelay="300" (click)="openSurvey(survey.id)"></button>
         </div>
     </p-toolbar>
 </div>

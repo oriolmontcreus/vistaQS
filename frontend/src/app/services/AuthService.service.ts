@@ -9,6 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import { getWithAuth } from '../utils/getWithAuth';
+import UserRegisterPayload from '@dto/types/User/UserRegisterPayload';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,30 @@ export class AuthService {
           console.error('Error:', error);
         },
         complete: () => { }
+      })
+    );
+  }
+
+  getUserData(): Observable<any> {
+    return getWithAuth(this.http, `${URI}/user`).pipe(
+      tap({
+        next: () => { },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => { }
+      })
+    );
+  }
+
+  registerUser(userRegisterPayload: UserRegisterPayload): Observable<any> {
+    return this.http.post<ApiResponse>(`${URI}/auth/register`, { ...userRegisterPayload }).pipe(
+      tap({
+        next: (response) => {},
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => {}
       })
     );
   }
