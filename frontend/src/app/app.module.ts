@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SurveyManagementComponent } from './pages/survey-management/survey-management.component';
+import { UserManagementComponent } from './pages/user-management/user-management.component';
 
 //PRIME NG
 import { ButtonModule } from 'primeng/button';
@@ -45,6 +46,7 @@ import { MenubarModule } from 'primeng/menubar';
     HomeComponent,
     DashboardComponent,
     SurveyManagementComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,

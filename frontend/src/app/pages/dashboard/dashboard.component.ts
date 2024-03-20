@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit{
       {
           label: 'Create User',
           icon: 'pi pi-fw pi-user-plus',
-          routerLink: '/user/manage'
+          routerLink: '/register'
       }
     ];
   }
