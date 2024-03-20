@@ -83,4 +83,16 @@ export class AuthService {
       })
     );
   }
+
+  getUserData(): Observable<any> {
+    return getWithAuth(this.http, `${URI}/user`).pipe(
+      tap({
+        next: () => { },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => { }
+      })
+    );
+  }
 }

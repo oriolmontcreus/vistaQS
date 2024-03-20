@@ -35,6 +35,7 @@ import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ChipsModule } from 'primeng/chips';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     InputNumberModule,
     ReactiveFormsModule,
     ChipsModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    MenubarModule
   ],
   providers: [
     provideClientHydration(),

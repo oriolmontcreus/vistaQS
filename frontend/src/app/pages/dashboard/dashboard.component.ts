@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import UserResponse from '@dto/types/User/UserResponse';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
+import { AuthService } from '../../services/AuthService.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +14,12 @@ import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
 })
 
 export class DashboardComponent implements OnInit{
-  constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService) {}
+  constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService, private authService: AuthService) {}
 
   user: UserResponse = {} as UserResponse;
   isLoading: boolean = false;
   surveys: SurveyDefinition[] = [];
+  items: MenuItem[] = [];
 
   ngOnInit() {
     this.getUserData();
@@ -28,14 +30,42 @@ export class DashboardComponent implements OnInit{
     this.router.navigate(['/survey', surveyId]);
   }
 
+  userAdminPerms(user: UserResponse) {
+    if (!user || user.id != 1) return;
+
+    //User is admin (id 1)
+    this.items = [
+      {
+          label: 'Create Survey',
+          icon: 'pi pi-fw pi-plus',
+          routerLink: '/survey/manage'
+      },
+      {
+          label: 'Create User',
+          icon: 'pi pi-fw pi-user-plus',
+          routerLink: '/user/manage'
+      }
+    ];
+  }
+
   getUserData() {
-    if (typeof localStorage !== 'undefined') {
-      const userData = localStorage.getItem('user');
-      if (userData)
-        this.user = JSON.parse(userData);
-      else 
-        this.router.navigate(['/']);
-    }
+    this.isLoading = true;
+    this.authService.getUserData().subscribe({
+      next: data => {
+        if (data && data.payload) {
+          this.user = data.payload.user;
+          this.userAdminPerms(this.user);
+        } else {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Error while getting user data' });
+        }
+      },
+      error: () => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   getSurveysForUser() {
