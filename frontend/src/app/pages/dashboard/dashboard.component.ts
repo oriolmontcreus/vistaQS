@@ -17,7 +17,10 @@ export class DashboardComponent implements OnInit{
   constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService, private authService: AuthService) {}
 
   user: UserResponse = {} as UserResponse;
+
   isLoading: boolean = false;
+  isInitdone: boolean = false;
+  
   surveys: SurveyDefinition[] = [];
   items: MenuItem[] = [];
 
@@ -85,7 +88,17 @@ export class DashboardComponent implements OnInit{
       },
       complete: () => {
         this.isLoading = false;
+        this.isInitdone = true;
       }
+    });
+  }
+
+  logout() {
+    this.isLoading = true;
+    this.authService.logout().subscribe({
+      next: data => {},
+      error: () => {},
+      complete: () => {this.isLoading = false;}
     });
   }
 }
