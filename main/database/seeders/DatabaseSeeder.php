@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // Insert into users table
         $userId = DB::table('users')->insertGetId([
-            'name' => 'Test User',
-            'email' => 'testuser@example.com',
+            'name' => 'Admin User',
+            'email' => 'adminuser@gmail.com',
             'password' => bcrypt('1234'),
-            'city' => 'Test City',
+            'city' => 'Awesome City',
         ]);
 
         // Insert into questiontype table
