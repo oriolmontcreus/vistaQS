@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import UserResponse from '@dto/types/User/UserResponse';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
 import { AuthService } from '../../services/AuthService.service';
+import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,7 @@ import { AuthService } from '../../services/AuthService.service';
 })
 
 export class DashboardComponent implements OnInit{
-  constructor(private router: Router, private SurveyDataService: SurveyDataService, private toastService: MessageService, private authService: AuthService) {}
+  constructor(private router: Router, private surveyDataService: SurveyDataService, private toastService: MessageService, private authService: AuthService) {}
 
   user: UserResponse = {} as UserResponse;
 
@@ -75,7 +77,7 @@ export class DashboardComponent implements OnInit{
 
   getSurveysForUser() {
     this.isLoading = true;
-    this.SurveyDataService.getSurveysForUser().subscribe({
+    this.surveyDataService.getSurveysForUser().subscribe({
       next: data => {
         if (data && data.payload) {
           this.surveys = data.payload.surveys;
@@ -100,5 +102,51 @@ export class DashboardComponent implements OnInit{
       error: () => {},
       complete: () => {this.isLoading = false;}
     });
+  }
+
+  async getSurveyGivenId(idSurvey: number): Promise<any> {
+    this.isLoading = true;
+    return new Promise((resolve, reject) => {
+      this.surveyDataService.getSurveyGivenId(idSurvey).subscribe({
+        next: data => {
+          resolve(data.payload.survey);
+        },
+        error: () => {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
+          reject();
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    });
+  }
+
+  async downloadSurvey(idSurvey: number): Promise<void> {
+    try {
+      const surveyData = await this.getSurveyGivenId(idSurvey);
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(surveyData));
+      const downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href",     dataStr);
+      downloadAnchorNode.setAttribute("download", `vistaQS-${surveyData.descr}-(id-${idSurvey}).json`);
+      document.body.appendChild(downloadAnchorNode); //firefox
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    } catch (error) {
+      console.error('Error downloading survey data:', error);
+    }
+  }
+
+  navigateAndPrint(idSurvey: number) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      take(1)
+    ).subscribe(() => {
+      setTimeout(() => { //Hardcoded delay to wait for the survey to load
+        window.print();
+      }, 1500);
+    });
+  
+    this.router.navigate(['/survey', idSurvey]);
   }
 }
