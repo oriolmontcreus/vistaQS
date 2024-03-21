@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import UserResponse from '@dto/types/User/UserResponse';
 import { SurveyDataService } from '../../services/SurveyDataService.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import SurveyDefinition from '@dto/types/Survey/SurveyDefinition';
 import { AuthService } from '../../services/AuthService.service';
 import QuestionDefinition from '@dto/types/Survey/QuestionDefinition';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -136,5 +137,16 @@ export class DashboardComponent implements OnInit{
     }
   }
 
+  navigateAndPrint(idSurvey: number) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      take(1)
+    ).subscribe(() => {
+      setTimeout(() => { //Hardcoded delay to wait for the survey to load
+        window.print();
+      }, 1500);
+    });
   
+    this.router.navigate(['/survey', idSurvey]);
+  }
 }

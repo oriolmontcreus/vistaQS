@@ -101,7 +101,7 @@
         </div>
         <div class="p-toolbar-group-right">
             <button pButton icon="pi pi-print" class="mr-2" pTooltip="Print" tooltipPosition="top"
-                tooltipShowDelay="300"></button>
+                tooltipShowDelay="300" (click)="navigateAndPrint(survey.id)"></button>
             <button pButton icon="pi pi-download" class="mr-2" pTooltip="Download .JSON" tooltipPosition="top"
             tooltipShowDelay="300"
             (click)="downloadSurvey(survey.id)"
