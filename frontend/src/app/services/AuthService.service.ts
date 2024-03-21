@@ -100,11 +100,28 @@ export class AuthService {
   registerUser(userRegisterPayload: UserRegisterPayload): Observable<any> {
     return this.http.post<ApiResponse>(`${URI}/auth/register`, { ...userRegisterPayload }).pipe(
       tap({
-        next: (response) => {},
+        next: (response) => { },
         error: (error) => {
           console.error('Error:', error);
         },
-        complete: () => {}
+        complete: () => { }
+      })
+    );
+  }
+
+  logout(): Observable<any> {
+    return this.http.post<ApiResponse>(`${URI}/auth/logout`, {}).pipe(
+      tap({
+        next: (response) => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('isFirstLogin');
+          this.ngZone.run(() => this.router.navigate(['/']));
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+        complete: () => { }
       })
     );
   }
