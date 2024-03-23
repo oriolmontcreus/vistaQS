@@ -79,10 +79,8 @@ export class SurveyManagementComponent implements OnInit {
     this.isLoading = true;
     this.authService.getAvailableSurveyors().subscribe({
       next: data => {
-        console.log(data);
         if (data && data.payload) {
           this.availableSurveyors = data.payload.surveyors;
-          console.log(this.availableSurveyors);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error getting available surveyors' });
         }
@@ -98,11 +96,6 @@ export class SurveyManagementComponent implements OnInit {
 
   postSurvey(surveyData: SurveyCreationRequest) {
     this.isLoading = true;
-    // if (!this.validateUserPayload()) {
-    //   this.toastService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all fields.' });
-    //   this.userPayload.password = '';
-    //   return;
-    // }
     this.surveyDataService.postNewSurvey(surveyData).subscribe({
       next: data => {
         if (data.status === ResConst.RES_SUCCESS) {

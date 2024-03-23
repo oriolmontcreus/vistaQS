@@ -16,15 +16,21 @@ class SurveyService
     public function getSurveysForUser()
     {
         $user = Auth::user();
-    
+
         return Survey::whereHas('surveyors', function ($query) use ($user) {
             $query->where('id', $user->id);
-        })->get();
+        })->where('endDate', '>', now())->get();
     }
+
     public function getSurveyById($id)
     {
-        return Survey::find($id);
+        $survey = Survey::find($id);
+
+        if ($survey && $survey->endDate > now()) return $survey;
+
+        return null;
     }
+
     public function getQuestionDefinitions(Survey $survey)
     {
         $user = auth()->user();
@@ -34,7 +40,7 @@ class SurveyService
             ->where('idSurveyor', $user->id)
             ->exists();
 
-        if (!$isAssigned) return null;
+        if (!$isAssigned || $survey->endDate < now()) return null;
 
         $questions = $survey->questions()->with(['questionType', 'questionTypeOptions'])->get();
 

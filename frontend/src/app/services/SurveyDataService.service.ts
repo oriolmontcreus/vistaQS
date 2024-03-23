@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { URI } from '../../environment'
 import { tap } from 'rxjs/operators';
 import { getWithAuth } from '../utils/getWithAuth';
+import { postWithAuth } from '../utils/postWithAuth';
 import SurveyCreationRequest from '@dto/payloads/SurveyCreationRequest';
 import AnswerDefinition from '@dto/types/Survey/AnswerDefinition';
 
@@ -39,7 +40,7 @@ export class SurveyDataService {
   }
 
   postNewSurvey(surveyData: SurveyCreationRequest): Observable<any> {
-    return this.http.post(`${URI}/survey`, surveyData).pipe(
+    return postWithAuth(this.http, `${URI}/survey`, surveyData).pipe(
       tap({
         next: () => { },
         error: (error) => {
@@ -51,7 +52,7 @@ export class SurveyDataService {
   }
 
   postSurveyAnswers(answers: AnswerDefinition[]): Observable<any> {
-    return this.http.post(`${URI}/survey/answers`, answers).pipe(
+    return postWithAuth(this.http, `${URI}/survey/answers`, answers).pipe(
       tap({
         next: () => { },
         error: (error) => {
