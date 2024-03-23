@@ -16,11 +16,12 @@ class SurveyService
     public function getSurveysForUser()
     {
         $user = Auth::user();
-    
+
         return Survey::whereHas('surveyors', function ($query) use ($user) {
             $query->where('id', $user->id);
-        })->get();
+        })->where('endDate', '>', now())->get();
     }
+
     public function getSurveyById($id)
     {
         $survey = Survey::find($id);
