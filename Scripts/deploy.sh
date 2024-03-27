@@ -1,22 +1,14 @@
 #!/bin/bash
 
-# Get the directory of the script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
 # Step 1: Build the Angular project
-cd "$DIR/Frontend"
-ng build --prod
+cd "../Frontend"
+ng build --configuration=production
 
-# Step 2: Build the Laravel project
-cd "$DIR/Backend"
-composer install
+# Step 2: Transfer the built Angular app to the VM
+scp -r "../Frontend/dist/frontend" root@10.2.235.187:/home/omont/daw2/docker/frontend
 
-# Step 3: Transfer the project files to the VM
-rsync -avz -e ssh "$DIR" root@10.2.235.187:/home/omont/daw2/docker/Project
+# Step 3: Transfer the backend deployment script to the VM
+scp -r "../Scripts/deploy_backend.sh" root@10.2.235.187:/home/omont/daw2/docker
 
-# Step 4: Connect to the VM and run the deployment script there
-ssh root@10.2.235.187 << 'ENDSSH'
-cd /home/omont/daw2/docker/Project
-docker-compose build
-docker-compose up -d
-ENDSSH
+# Step 4: Execute the backend deployment script on the VM
+ssh root@10.2.235.187 "bash /home/omont/daw2/docker/deploy_backend.sh"
