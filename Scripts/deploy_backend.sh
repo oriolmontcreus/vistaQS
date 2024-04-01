@@ -13,7 +13,13 @@ rm -rf backend
 git clone https://github.com/oriolmontcreus/01-Projecte-Intermodul backend
 cd backend
 git checkout main
-composer install
 cd ..
 docker-compose build
 docker-compose up -d
+
+# Wait for the database service to be ready
+sleep 20
+
+# Run migrations and seeders
+docker-compose exec -T app php artisan migrate --force
+docker-compose exec -T app php artisan db:seed --force
