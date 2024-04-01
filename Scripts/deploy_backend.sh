@@ -13,7 +13,6 @@ rm -rf backend
 git clone https://github.com/oriolmontcreus/01-Projecte-Intermodul backend
 cd backend
 git checkout main
-composer install
 cd ..
 docker-compose build
 docker-compose up -d
