@@ -17,3 +17,10 @@ composer install
 cd ..
 docker-compose build
 docker-compose up -d
+
+# Wait for the database service to be ready
+sleep 20
+
+# Run migrations and seeders
+docker-compose exec -T app php artisan migrate --force
+docker-compose exec -T app php artisan db:seed --force
