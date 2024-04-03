@@ -2,9 +2,11 @@
 
 echo "test"
 
-cd /var/www/html
+cd /var/www/html/Backend
 
 pwd
+
+ls -lisa
 
 # Run migrations
 php artisan migrate --force
