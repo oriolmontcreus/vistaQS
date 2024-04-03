@@ -2,6 +2,10 @@
 
 echo "test"
 
+cd /var/www/html
+
+pwd
+
 # Run migrations
 php artisan migrate --force
 
