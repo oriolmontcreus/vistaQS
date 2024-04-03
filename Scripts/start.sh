@@ -8,6 +8,8 @@ pwd
 
 ls -lisa
 
+rn .env.example .env
+
 composer install
 
 # Run migrations
