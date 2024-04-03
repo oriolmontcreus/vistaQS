@@ -8,6 +8,8 @@ pwd
 
 ls -lisa
 
+composer install
+
 # Run migrations
 php artisan migrate --force
 
