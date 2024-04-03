@@ -24,6 +24,5 @@ while [ "$(docker inspect -f {{.State.Running}} docker_backend_1)" != "true" ]; 
 done
 
 # Run start.sh script inside the Docker container
-echo "Running start.sh script..."
 docker cp ./start.sh docker_backend_1:/var/www/html/start.sh
 docker exec docker_backend_1 bash -c "/var/www/html/start.sh"

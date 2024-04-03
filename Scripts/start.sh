@@ -3,9 +3,7 @@
 echo "Running start.sh script..."
 
 cd /var/www/html/Backend
-
 mv .env.example .env
-
 composer install
 
 # Run migrations
