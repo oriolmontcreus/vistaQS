@@ -1,12 +1,8 @@
 #!/bin/bash
 
-echo "test"
+echo "Running start.sh script..."
 
 cd /var/www/html/Backend
-
-pwd
-
-ls -lisa
 
 mv .env.example .env
 
