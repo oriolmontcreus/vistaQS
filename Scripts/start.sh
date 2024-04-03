@@ -8,7 +8,7 @@ pwd
 
 ls -lisa
 
-rn .env.example .env
+mv .env.example .env
 
 composer install
 
