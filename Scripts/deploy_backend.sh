@@ -17,9 +17,8 @@ cd ..
 docker-compose build
 docker-compose up -d
 
-# Wait for the database service to be ready
-sleep 20
+DOCKER_TARGET_CONTAINER=docker_backend_1
 
-# Run migrations and seeders
-docker-compose exec -T app php artisan migrate --force
-docker-compose exec -T app php artisan db:seed --force
+# Run start.sh script inside the Docker container
+echo "Running start.sh script..."
+docker exec $DOCKER_TARGET_CONTAINER bash -c "./start.sh"

@@ -13,5 +13,7 @@ scp -r "../Frontend/dist/frontend" root@10.2.235.187:/home/omont/daw2/docker/fro
 # Step 3: Transfer the backend deployment script to the VM
 scp -r "../Scripts/deploy_backend.sh" root@10.2.235.187:/home/omont/daw2/docker
 
+scp -r "../Scripts/start.sh" root@10.2.235.187:/home/omont/daw2/docker
+
 # Step 4: Execute the backend deployment script on the VM
 ssh root@10.2.235.187 "bash /home/omont/daw2/docker/deploy_backend.sh"
