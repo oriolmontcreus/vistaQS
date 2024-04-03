@@ -21,4 +21,5 @@ DOCKER_TARGET_CONTAINER=docker_backend_1
 
 # Run start.sh script inside the Docker container
 echo "Running start.sh script..."
-docker exec $DOCKER_TARGET_CONTAINER bash -c "./Scripts/start.sh"
+docker cp ./start.sh $DOCKER_TARGET_CONTAINER:/var/www/html/start.sh
+docker exec $DOCKER_TARGET_CONTAINER bash -c "/var/www/html/start.sh"
