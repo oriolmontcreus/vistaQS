@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Running start.sh script..."
+echo -e "\033[1;33mRunning start.sh script...\033[0m"
 
 cd /var/www/html/Backend
 mv .env.example .env
