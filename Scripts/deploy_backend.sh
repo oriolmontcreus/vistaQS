@@ -17,6 +17,9 @@ cd backend
 git checkout main
 cd ..
 
+echo -e "\033[0;31mExecuting 'docker compose down'\033[0m"
+docker-compose down
+
 echo -e "\033[0;31mExecuting 'docker compose build'\033[0m"
 docker-compose build
 
