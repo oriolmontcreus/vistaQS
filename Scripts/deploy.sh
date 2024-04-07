@@ -3,6 +3,7 @@
 TARGET_USER="root"
 TARGET_MACHINE="10.2.235.187"
 
+clear
 echo -e "\033[0;36m"
 cat << "EOF"
          d8b          888              .d88888b.   .d8888b.  
@@ -15,10 +16,18 @@ Y88  88P 888 "Y8888b. 888    .d888888 888 Y8b 888       "888
   Y88P   888  88888P'  "Y888 "Y888888  "Y888888"   "Y8888P"  
                                              Y8b                                                                          
 EOF
-echo -e "\033[0m"
+echo -en "\033[0m"
+echo -e "\033[0;31m"
+cat << EOF
+                            Step 1/3
+                ┌─────────────────────────────┐
+----  ----  ----│    Starting deployment to:  │----  ----  ----  
+----  ----  ----│        $TARGET_MACHINE         │----  ----  ----  
+                └─────────────────────────────┘                  
+EOF
+echo -en "\033[0m"
 
 # Build the Angular project
-echo -e "\033[0;32mBuilding frontend...\033[0m"
 cd "../Frontend"
 ng build --configuration=production
 
@@ -26,14 +35,14 @@ ng build --configuration=production
 dos2unix "../Scripts/deploy_backend.sh"
 
 # Transfer the built Angular app to the VM
-echo -e "\033[0;32mTransfering built frontend to target machine...\033[0m"
+echo -e "\033[0;36m[vistaQs] - Transfering built frontend to target machine...\033[0m"
 scp -r "../Frontend/dist/frontend" $TARGET_USER@$TARGET_MACHINE:/home/omont/daw2/docker/frontend
 
 # Transfer the backend deployment script and the final start script to the VM
-echo -e "\033[0;32mTransfering deploy and start scripts to target machine...\033[0m"
+echo -e "\033[0;36m[vistaQs] - Transfering deploy and start scripts to target machine...\033[0m"
 scp -r "../Scripts/deploy_backend.sh" $TARGET_USER@$TARGET_MACHINE:/home/omont/daw2/docker
 scp -r "../Scripts/start.sh" $TARGET_USER@$TARGET_MACHINE:/home/omont/daw2/docker
 
 # Execute the backend deployment script on the VM
-echo -e "\033[0;32mExecuting backend deployment script inside target machine...\033[0m"
+echo -e "\033[0;36m[vistaQs] - Executing backend deployment script inside target machine...\033[0m"
 ssh $TARGET_USER@$TARGET_MACHINE "bash /home/omont/daw2/docker/deploy_backend.sh"
