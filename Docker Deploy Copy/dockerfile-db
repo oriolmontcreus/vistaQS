@@ -1,0 +1,9 @@
+# Dockerfile-db
+
+FROM postgres:latest
+
+ENV POSTGRES_USER surveyadmin
+ENV POSTGRES_PASSWORD AdminSurvey1234
+ENV POSTGRES_DB surveydb
+
+EXPOSE 5432

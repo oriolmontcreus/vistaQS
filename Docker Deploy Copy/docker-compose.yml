@@ -1,0 +1,46 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ./database
+      dockerfile: dockerfile-db
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - enq-network
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfile-backend
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - enq-network
+    ports:
+      - "8000:8000"
+  frontend:
+      build:
+        context: ./frontend
+        dockerfile: dockerfile-frontend
+      volumes:
+      - ./frontend:/usr/local/apache2/htdocs
+      depends_on:
+        - backend
+      links:
+        - backend
+      ports:
+        - "8080:80"
+      environment:
+        - APACHE_RUN_DIR=/var/run/apache2
+      networks:
+        - enq-network
+
+networks:
+  enq-network:
+    driver: bridge

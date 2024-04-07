@@ -1,0 +1,37 @@
+FROM php:8.2.12-fpm
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libonig-dev \
+    libpng-dev \
+    zip \
+    curl \
+    unzip \
+    libpq-dev
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql pgsql
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy existing application directory contents
+COPY ./backend/Backend /var/www/html
+
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data ./backend/Backend /var/www/html
+
+# Rename .env.example to .env
+RUN mv .env.example .env
+
+# Install Composer dependencies
+RUN composer install
+
+# Generate new APP_KEY
+RUN php artisan key:generate
