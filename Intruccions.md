@@ -8,7 +8,7 @@ Necessitaràs tenir instal·lats Node.js i npm (Node Package Manager) en el teu 
 
 ## Instal·lació
 
-1. Clona aquest repositori en el teu sistema local utilitzant `git clone https://github.com/oriolmontcreus/01-Projecte-Intermodul.git`.
+1. Clona aquest repositori en el teu sistema local utilitzant `git clone https://github.com/oriolmontcreus/vistaQS.git`.
 
 2. Navega fins a la carpeta del projecte (Frontend) utilitzant `cd Frontend`.
 
