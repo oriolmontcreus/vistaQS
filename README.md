@@ -26,12 +26,9 @@ Our goal is to create the infrastructure and client/server developments to suppo
     <img src="createSurvey.png" style="border-radius: 7px;" width="400">
     <img src="createSurveyor.png" style="border-radius: 7px;" width="400">
     <img src="login.png" style="border-radius: 7px;" width="400">
-
-<video width="800" controls style="border-radius: 7px;">
-    <source src="https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
 </div>
+
+https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9
 
 ---
 
