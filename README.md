@@ -14,8 +14,9 @@ The survey consists of questions designed to gauge whether the respondent might 
 
 Our goal is to create the infrastructure and client/server developments to support our company's survey capture needs. Additionally, we aim to effectively manage the project, the code, and the generated documentation."
 ```
-
 ---
+
+https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9
 
 ## 🛠️ Tech Stack
 
