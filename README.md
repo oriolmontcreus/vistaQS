@@ -1,8 +1,9 @@
 # 📊 VistaQs
 
 VistaQs is a survey web application developed as a school project for Ins Rafael Campalans. The application is designed to facilitate the collection of street survey data.
-
+<div align="center">
 <img src="./Documentation/Logos/vistaqs-logo.png" alt="VistaQs Logo" width="200"/>
+</div>
 
 ## 🎯 Project Objective
 
@@ -16,7 +17,23 @@ Our goal is to create the infrastructure and client/server developments to suppo
 ```
 ---
 
-https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9
+## 📸 Preview
+
+<div align="center">
+    <img src="home.png" style="border-radius: 7px;" width="400">
+    <img src="dashboard.png" style="border-radius: 7px;" width="400">
+    <img src="doSurvey.png" style="border-radius: 7px;" width="400">
+    <img src="createSurvey.png" style="border-radius: 7px;" width="400">
+    <img src="createSurveyor.png" style="border-radius: 7px;" width="400">
+    <img src="login.png" style="border-radius: 7px;" width="400">
+
+<video width="800" controls style="border-radius: 7px;">
+    <source src="https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+</div>
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -37,7 +54,9 @@ Deployment of the application is managed using Docker. The application is divide
 
 Each container has its own Dockerfile, and a main Docker Compose file is used to orchestrate the building and running of these containers.
 
-![VistaQs Diagram](./Documentation/Project/vistaqs-diagram.png)
+<div align="center">
+<img src="./Documentation/Project/vistaqs-diagram.png" style="border-radius: 7px;" width="600px">
+</div>
 
 ---
 
