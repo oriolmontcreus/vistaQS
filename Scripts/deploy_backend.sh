@@ -22,7 +22,7 @@ cd /home/omont/daw2/docker
 rm -rf backend
 
 echo -e "\033[0;36m[vistaQs] - Cloning project to -> backend\033[0m"
-git clone hhttps://github.com/oriolmontcreus/vistaQS.git backend
+git clone https://github.com/oriolmontcreus/vistaQS.git backend
 cd backend
 git checkout main
 cd ..
