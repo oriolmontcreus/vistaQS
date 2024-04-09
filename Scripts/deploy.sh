@@ -33,6 +33,7 @@ ng build --configuration=production
 
 # Convert the backend deployment script to Unix format
 dos2unix "../Scripts/deploy_backend.sh"
+dos2unix "../Scripts/start.sh"
 
 # Transfer the built Angular app to the VM
 echo -e "\033[0;36m[vistaQs] - Transfering built frontend to target machine...\033[0m"
