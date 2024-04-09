@@ -20,12 +20,12 @@ Our goal is to create the infrastructure and client/server developments to suppo
 ## 📸 Preview
 
 <div align="center">
-    <img src="home.png" style="border-radius: 7px;" width="400">
-    <img src="dashboard.png" style="border-radius: 7px;" width="400">
-    <img src="doSurvey.png" style="border-radius: 7px;" width="400">
-    <img src="createSurvey.png" style="border-radius: 7px;" width="400">
-    <img src="createSurveyor.png" style="border-radius: 7px;" width="400">
-    <img src="login.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/home.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/dashboard.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/doSurvey.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/createSurvey.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/createSurveyor.png" style="border-radius: 7px;" width="400">
+    <img src="./readmeMedia/login.png" style="border-radius: 7px;" width="400">
 </div>
 
 https://github.com/oriolmontcreus/vistaQS/assets/58004352/5539e2fc-df9c-4027-b01c-63958a7366a9
