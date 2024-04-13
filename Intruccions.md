@@ -1,5 +1,6 @@
 # README.md
 
+//outdated
 Aquest fitxer README proporciona una guia pas a pas per configurar i executar aquest projecte Angular. 
 
 ## Requisits previs
