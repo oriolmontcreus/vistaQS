@@ -17,6 +17,7 @@ Y88  88P 888 "Y8888b. 888    .d888888 888 Y8b 888       "888
                                              Y8b                                                                          
 EOF
 echo -en "\033[0m"
+echo -e "\033[0;36mBy Oriol Mont\033[0m"
 echo -e "\033[0;31m"
 cat << EOF
                             Step 1/3
