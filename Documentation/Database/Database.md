@@ -5,7 +5,7 @@ The tables have to be created in order! From top to bottom. ⬇️
 Table `surveyor`
 
 
-```python
+```SQL
 CREATE TABLE surveyor (
     id SERIAL PRIMARY KEY,
     name TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE surveyor (
 Table `survey`
 
 
-```python
+```SQL
 CREATE TABLE survey (
     id SERIAL PRIMARY KEY,
     descr TEXT,
@@ -29,7 +29,7 @@ CREATE TABLE survey (
 Table `questiontype`
 
 
-```python
+```SQL
 CREATE TABLE questiontype (
     id SERIAL PRIMARY KEY,
     typeName TEXT
@@ -39,7 +39,7 @@ CREATE TABLE questiontype (
 Table `question`
 
 
-```python
+```SQL
 CREATE TABLE question (
     id SERIAL PRIMARY KEY,
     question TEXT,
@@ -51,7 +51,7 @@ CREATE TABLE question (
 Table `answer`
 
 
-```python
+```SQL
 CREATE TABLE answer (
     id SERIAL PRIMARY KEY,
     answer TEXT,
@@ -64,7 +64,7 @@ CREATE TABLE answer (
 Table `questiontype_option`
 
 
-```python
+```SQL
 CREATE TABLE questiontype_option (
     id SERIAL PRIMARY KEY,
     idQuestion INT,
@@ -76,7 +76,7 @@ CREATE TABLE questiontype_option (
 Table `survey_surveyor`
 
 
-```python
+```SQL
 CREATE TABLE survey_surveyor (
     idSurvey INT,
     idSurveyor INT,
@@ -89,7 +89,7 @@ CREATE TABLE survey_surveyor (
 Table `survey_question`
 
 
-```python
+```SQL
 CREATE TABLE survey_question (
     idSurvey INT,
     idQuestion INT,
